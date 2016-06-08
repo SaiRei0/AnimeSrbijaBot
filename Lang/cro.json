@@ -196,7 +196,7 @@
     "datarestored": "Prosli sacuvani podaci uspijesno preuzeti.",
     "greyuser": " :warning: [Connecting Failed!] Dave1.0 Error.",
     "bouncer": "Bot ne moze premjestati usere ako je pokrenut od strane bouncer-a.",
-    "online": "/me :white_check_mark: %%BOTNAME%% %%VERSION%% uspijesno aktiviran.",
+    "online": "/me :white_check_mark: %%BOTNAME%% %%VERSION%% uspijesno aktiviran. - Made by Warix3 (esdet) , Ajdin97 , Benzi",
 
 
     "welcome": "/me Dobrodošao/la %%NAME%% u sobu Anime Srbije, pravila i ostale linkove možeš pronaći u opisu sobe.",

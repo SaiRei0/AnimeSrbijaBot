@@ -324,6 +324,11 @@
 					<td>[@user]</td>
 					<td>Give it a try</td>
 				</tr>
+				<tr>
+					<td>!slow</td>
+					<td>(X)</td>
+					<td>Turn on Slow mode in room </td>
+				</tr>
 			</tbody>
 		</table>
 		<h2>RESIDENTDJ</h2>
