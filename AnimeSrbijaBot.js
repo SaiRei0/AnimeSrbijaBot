@@ -4374,7 +4374,7 @@ API.on(API.ADVANCE, meh);
 							user.better = sender;
 							user.offered = offer;
 							sender.animePoints = sender.animePoints - offer;
-							API.sendChat("/me @" + chat.un + " te poziva na opkladu! u " + ap " AnimePointsa! Upišisi !ap bet prihvati ili !ap bet odbij");
+							API.sendChat("/me @" + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi !ap bet prihvati ili !ap bet odbij");
                         }
 						
 						function checkNull(arg)
