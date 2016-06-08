@@ -269,7 +269,7 @@
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         settings: {
-            botName: "Dave1.0",
+            botName: "AnimeSrbija bot",
             language: "croatian",
             chatLink: "https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/cro.json",
             roomLock: false, // Requires an extension to re-load the script
@@ -323,7 +323,7 @@
             themeLink: null,
             fbLink: "https://www.facebook.com/groups/bestparty19/",
             youtubeLink: "http://bit.ly/1JCermI",
-            website: "http://www.balkan19.ga/",
+            website: "http://www.animesrbija.rs/",
             intervalMessages: [],
             messageInterval: 5,
             songstats: false,
@@ -430,6 +430,9 @@
                 songCount: 0
             };
             this.lastKnownPosition = null;
+			this.animePoints = 0;
+			this.betRecieved = false;
+			this.better = null;
         },
         userUtilities: {
             getJointime: function (user) {
@@ -3131,7 +3134,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat('/me This bot was created by ' + botCreator + ', but is now maintained by ' + botMaintainer + ".");
+                        API.sendChat("/me BasicBot edited and maintaned by Warix3 (esdet)");
                     }
                 }
             },
@@ -4048,7 +4051,7 @@ functionality: function (chat, cmd) {
 if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
 if (!bBot.commands.executable(this.rank, chat)) return void (0);
 else {
-var link = "http://ask.fm/BalkanParty12";
+var link = "nema aska xD";
 API.sendChat(subChat(bBot.chat.ask, {name: chat.un, link: link}));
 }
 }
@@ -4326,7 +4329,33 @@ API.on(API.ADVANCE, meh);
                     }
                 }
             },
-			
+			apCommand: {
+				command: 'ap',
+                rank: 'user',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!bBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var slow;
+						var sender = lookupUser(chat.uid);
+						var ap = sender.animePoints;
+						
+                        if (msg.length === cmd.length)
+						{
+							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa"));
+						}
+                        else if(msg.substring(cmd.length + 1) == "bet")
+						{
+							var user = lookupUser(msg.substring(cmd.length + 4);
+							user.betRecieved = true;
+							user.better = sender;
+                        }
+						
+                        
+                    }
+			}
 			
         }
     };
