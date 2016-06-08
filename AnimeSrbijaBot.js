@@ -862,7 +862,7 @@
                 if (bBot.room.users[i].id === chat.uid) {
 					if(bBot.room.slowMode)
 					{
-						if(!(bBot.userUtilities.getPermission(bBot.room.users[i].id) >= 2) && ((Date.now() - bBot.room.users[i].lastActivity) < (bBot.room.slowModeDuration * 1000)))
+						if((Date.now() - bBot.room.users[i].lastActivity) < (bBot.room.slowModeDuration * 1000))
 						{
 							API.moderateDeleteChat(chat.cid);
 							return void (0);
