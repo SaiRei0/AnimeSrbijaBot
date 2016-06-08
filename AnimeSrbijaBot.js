@@ -1,17 +1,62 @@
 /*
     AnimeSrbijaBot BOT SCRIPT
 
-	Custom bot for a Plug.dj community, based on dave1.0 script made by Ajdin ajdin291@gmail.com http://www.bakan19.ga/
-	which is based on BasicBot.
-	This script is made by Warix3 (Toni Pejić) warixmods.ga
+	Custom bot for a Plug.dj community, based on dave1.0 script
 	
-	Copyright (c) 2014-2016 Warix3 & BalkanParty
+	This script is modified by Warix3 (Toni Pejić) warixmods.ga
+	And AnimeSrbija commands are added by Warix3.
+	
+	Copyright (c) 2016 Warix3
     Please do not copy or modify without permission
     from the respected owner(s) and developer(s).
+	
+	Author: Toni Pejić (Warix3)
+	Github: Po2kkz
+	Website: warixmods.ga
+	E-mail: toni.pejic98@gmail.com
 */
 
+//BasicBot copyright notice:
 
-// THIS IS EDITED VERSION OF BASIC BOT - TRANSLATION, CUSTOM COMMANDS
+/**
+ *Copyright 2015 basicBot
+ *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
+ *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
+ */
+
+//Dave1.0 Copyright notice:
+
+/*
+    DAVE1.0 BOT SCRIPT
+
+    Copyright (c) 2014-2016 Balkan Party
+    Please do not copy or modify without permission
+    from the respected owner(s) and developer(s).
+
+    CURRENT DEVELOPERS: AJDIN (www.ajdin.gq)
+
+    CONTACT: ajdin291@gmail.com
+    WEBSITE: http://www.bakan19.ga/
+
+
+    FULL OWNER: Benzi
+    ORGINAL LINK: https://github.com/bscBot/source
+
+    INCLUDES: CUSTOM COMMANDS
+
+    ======================================================
+                    DO NOT TRY TO EDIT!
+    ======================================================
+
+    THIS IS ORGINAL BASIC BOT FOR BALKAN PARTY ROOM ONLY
+    WITH CUSTOM COMMANDS, THE REASON WHY THE CODE IS 
+    OBFUSCATED IS CAUSE WE DONT WANT OTHER TO COPY IT,
+    WE RESPECT THE ORGINAL CODE.
+
+    LAST UPDATED: 20.03.2016
+
+    ======================================================
+*/
 
 (function () {
 
@@ -75,7 +120,7 @@
     var loadChat = function (cb) {
         if (!cb) cb = function () {
         };
-        $.get("https://rawgit.com/Ajdin1997/Dave1.0/master/Lang/langIndex.json", function (json) {
+        $.get("https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/langIndex.json", function (json) {
             var link = bBot.chatLink;
             if (json !== null && typeof json !== "undefined") {
                 langIndex = json;
@@ -216,9 +261,9 @@
         status: false,
         name: "Dave1.0",
         loggedInID: "23625731",
-        scriptLink: "https://www.ajdin.gq/files/theme/plugdj/dave1.0.js",
-        cmdLink: "http://www.balkan19.ga/bBot.html",
-        chatLink: "https://rawgit.com/Ajdin1997/Dave1.0/master/Lang/cro.json",
+        scriptLink: "https://github.com/Po2kkz/AnimeSrbijaBot/blob/master/AnimeSrbijaBot.js",
+        cmdLink: "https://github.com/Po2kkz/AnimeSrbijaBot/blob/master/commands.md",
+        chatLink: "https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/cro.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
@@ -226,7 +271,7 @@
         settings: {
             botName: "Dave1.0",
             language: "croatian",
-            chatLink: "https://rawgit.com/Ajdin1997/Dave1.0/master/Lang/cro.json",
+            chatLink: "https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/cro.json",
             roomLock: false, // Requires an extension to re-load the script
             startupCap: 1, // 1-200
             startupVolume: 0, // 0-100
