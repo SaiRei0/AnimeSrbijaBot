@@ -4354,7 +4354,7 @@ API.on(API.ADVANCE, meh);
 						
                         if (msg.length === cmd.length)
 						{
-							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa"));
+							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa");
 						}
 						bBot.room.users[].forEach();
                         else if(arguments[1] == "bet" && isNan(arguments[3]) && contains)
