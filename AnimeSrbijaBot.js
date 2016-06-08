@@ -430,9 +430,11 @@
                 songCount: 0
             };
             this.lastKnownPosition = null;
+			//anime points
 			this.animePoints = 0;
 			this.betRecieved = false;
 			this.better = null;
+			this.offered = 0;
         },
         userUtilities: {
             getJointime: function (user) {
@@ -4341,19 +4343,52 @@ API.on(API.ADVANCE, meh);
                         var slow;
 						var sender = lookupUser(chat.uid);
 						var ap = sender.animePoints;
+						var arguments = msg.split(' ');
+						var contains = false;
+						arguments = arguments.filter(checkNull);
+						
+						if(arguments[2].startsWith('@'))
+						{
+							arguments[2] = arguments[2].substring(1);
+						}
 						
                         if (msg.length === cmd.length)
 						{
 							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa"));
 						}
-                        else if(msg.substring(cmd.length + 1) == "bet")
+						bBot.room.users[].forEach();
+                        else if(arguments[1] == "bet" && isNan(arguments[3]) && contains)
 						{
+							var offer = parseInt(arguments[3]);
+							if(ap < offer)
+							{
+								return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu opkladu!"));
+							}
+							
 							var user = lookupUser(msg.substring(cmd.length + 4);
+							if(user.animePoints < offer)
+							{
+								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu opkladu! Ima samo: " + user.animePoints));
+							}
+							
 							user.betRecieved = true;
 							user.better = sender;
+							user.offered = offer;
+							sender.animePoints = sender.animePoints - offer;
+							API.sendChat("/me @" + chat.un + " te poziva na opkladu! u " + ap " AnimePointsa! Upišisi !ap bet prihvati ili !ap bet odbij"));
                         }
 						
-                        
+						function checkNull(arg)
+						{
+							return arg !== null;
+						}
+                        function containsUser(user)
+						{
+							if(user.username === arguments[2])
+							{
+								contains = true;
+							}
+						}
                     }
 			}
 			
