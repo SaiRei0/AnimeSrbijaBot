@@ -4364,7 +4364,7 @@ API.on(API.ADVANCE, meh);
 								return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu opkladu!");
 							}
 							
-							var user = lookupUser(msg.substring(cmd.length + 4);
+							var user = lookupUser(msg.substring(cmd.length + 4));
 							if(user.animePoints < offer)
 							{
 								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu opkladu! Ima samo: " + user.animePoints);
