@@ -1,33 +1,10 @@
 /*
-    DAVE1.0 BOT SCRIPT
+    AnimeSrbijaBot BOT SCRIPT
 
-    Copyright (c) 2014-2016 Balkan Party
-    Please do not copy or modify without permission
-    from the respected owner(s) and developer(s).
-
-    CURRENT DEVELOPERS: AJDIN (www.ajdin.gq)
-
-    CONTACT: ajdin291@gmail.com
-    WEBSITE: http://www.bakan19.ga/
-
-
-    FULL OWNER: Benzi
-    ORGINAL LINK: https://github.com/bscBot/source
-
-    INCLUDES: CUSTOM COMMANDS
-
-    ======================================================
-                    DO NOT TRY TO EDIT!
-    ======================================================
-
-    THIS IS ORGINAL BASIC BOT FOR BALKAN PARTY ROOM ONLY
-    WITH CUSTOM COMMANDS, THE REASON WHY THE CODE IS 
-    OBFUSCATED IS CAUSE WE DONT WANT OTHER TO COPY IT,
-    WE RESPECT THE ORGINAL CODE.
-
-    LAST UPDATED: 20.03.2016
-
-    ======================================================
+	Custom bot for a Plug.dj community, based on dave1.0 script made by Ajdin ajdin291@gmail.com http://www.bakan19.ga/
+	which is based on BasicBot.
+	This script is made by Warix3 (Toni Pejić) warixmods.ga
+	
 */
 
 
