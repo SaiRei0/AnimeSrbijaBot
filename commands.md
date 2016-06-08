@@ -89,9 +89,6 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<div class="space-30"></div>
-
 		<h2>BOUNCER</h2>
 		<table class="cmd-bouncer">
 			<thead>
@@ -329,9 +326,7 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<div class="space-30"></div>
-
+		
 		<h2>RESIDENTDJ</h2>
 		<table class="cmd-rdj">
 			<thead>
@@ -364,8 +359,6 @@
 				</tr>
 			</tbody>
 		</table>
-
-        <div class="space-30"></div>
 
         <h2>USERS</h2>
         <table class="cmd-user">
