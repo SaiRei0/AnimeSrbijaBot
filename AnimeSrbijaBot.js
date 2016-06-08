@@ -5,6 +5,9 @@
 	which is based on BasicBot.
 	This script is made by Warix3 (Toni Pejić) warixmods.ga
 	
+	Copyright (c) 2014-2016 Warix3 & BalkanParty
+    Please do not copy or modify without permission
+    from the respected owner(s) and developer(s).
 */
 
 
@@ -350,7 +353,9 @@
                     }, 1 * 1000, winner, pos);
                 }
             },
-            usersUsedThor: []
+            usersUsedThor: [],
+			SlowMode: false,
+			SlowModeDuration: 10
         },
 
         User: function (id, name) {
@@ -799,6 +804,14 @@
             chat.message = chat.message.trim();
             for (var i = 0; i < bBot.room.users.length; i++) {
                 if (bBot.room.users[i].id === chat.uid) {
+					if(bBot.room.slowMode)
+					{
+						if(!(bBot.userUtilities.getPermission(bBot.room.users[i].id) >= 2) && ((Date.now() - bBot.room.users[i].lastActivity) < (bBot.room.slowModeDuration * 1000)))
+						{
+							API.moderateDeleteChat(chat.cid);
+							return void (0);
+						}
+					}
                     bBot.userUtilities.setLastActivity(bBot.room.users[i]);
                     if (bBot.room.users[i].username !== chat.un) {
                         bBot.room.users[i].username = chat.un;
@@ -3950,7 +3963,7 @@
                     }
                 }
             },
-             
+             //Balkan Party commands
             eldoxCommand: {
 command: 'eldox',
 rank: 'user',
@@ -4223,7 +4236,47 @@ API.on(API.ADVANCE, meh);
                             API.sendChat(subChat(bBot.chat.youtube, {name: chat.un, link: bBot.settings.youtubeLink}));
                     }
                 }
-            }
+            },
+			//AnimeSrbija commands
+			slowCommand: {
+                command: 'slow',
+                rank: 'bouncer',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!bBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var slow;
+
+                        if (msg.length === cmd.length)
+						{
+							slow = 30;
+						}
+                        else {
+                            slow = msg.substring(cmd.length + 1);
+                            if (isNaN(slow))
+							{
+								return API.sendChat(subChat(basicBot.chat.invalidtime, {name: chat.un}));
+							}
+                        }
+                        if(!bBot.room.slowMode)
+						{
+							bBot.room.slowMode = true;
+							bBot.room.slowModeDuration = slow;
+							API.sendChat("/me Spori način uključen, razmak između poruka: "+ slow + " sekundi!");
+						}else
+						{
+							bBot.room.slowMode = false;
+							bBot.room.slowModeDuration = 0;
+							API.sendChat("/me Spori način isključen!");
+						}
+                        
+                    }
+                }
+            },
+			
+			
         }
     };
 
