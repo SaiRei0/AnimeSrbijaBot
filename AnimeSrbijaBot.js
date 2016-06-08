@@ -4351,12 +4351,11 @@ API.on(API.ADVANCE, meh);
 						{
 							arguments[2] = arguments[2].substring(1);
 						}
-						
+						bBot.room.users.forEach();
                         if (msg.length === cmd.length)
 						{
 							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa");
 						}
-						bBot.room.users.forEach();
                         else if(arguments[1] == "bet" && isNan(arguments[3]) && contains)
 						{
 							var offer = parseInt(arguments[3]);
