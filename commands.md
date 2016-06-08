@@ -326,7 +326,6 @@
 				</tr>
 			</tbody>
 		</table>
-		
 		<h2>RESIDENTDJ</h2>
 		<table class="cmd-rdj">
 			<thead>
@@ -359,7 +358,6 @@
 				</tr>
 			</tbody>
 		</table>
-
         <h2>USERS</h2>
         <table class="cmd-user">
       <thead>
