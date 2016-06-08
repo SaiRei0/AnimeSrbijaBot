@@ -4361,20 +4361,20 @@ API.on(API.ADVANCE, meh);
 							var offer = parseInt(arguments[3]);
 							if(ap < offer)
 							{
-								return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu opkladu!"));
+								return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu opkladu!");
 							}
 							
 							var user = lookupUser(msg.substring(cmd.length + 4);
 							if(user.animePoints < offer)
 							{
-								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu opkladu! Ima samo: " + user.animePoints));
+								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu opkladu! Ima samo: " + user.animePoints);
 							}
 							
 							user.betRecieved = true;
 							user.better = sender;
 							user.offered = offer;
 							sender.animePoints = sender.animePoints - offer;
-							API.sendChat("/me @" + chat.un + " te poziva na opkladu! u " + ap " AnimePointsa! Upišisi !ap bet prihvati ili !ap bet odbij"));
+							API.sendChat("/me @" + chat.un + " te poziva na opkladu! u " + ap " AnimePointsa! Upišisi !ap bet prihvati ili !ap bet odbij");
                         }
 						
 						function checkNull(arg)
