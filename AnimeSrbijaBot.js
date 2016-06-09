@@ -4402,14 +4402,14 @@ API.on(API.ADVANCE, meh);
 									sender.AnimePoints += sender.offered;
 									sender.better.AnimePoints -= sender.offered;
 									finishBet();
-									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
+									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								else
 								{
 									sender.AnimePoints -= sender.offered;
 									sender.better.AnimePoints += sender.offered;
 									finishBet();
-									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
+									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								
 							}
