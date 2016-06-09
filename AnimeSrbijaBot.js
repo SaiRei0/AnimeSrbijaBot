@@ -4462,6 +4462,7 @@ API.on(API.ADVANCE, meh);
         } 
         }
 		*/
+		}
     };
 
     loadChat(bBot.startup);
