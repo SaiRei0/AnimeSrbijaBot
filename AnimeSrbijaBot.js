@@ -4341,7 +4341,7 @@ API.on(API.ADVANCE, meh);
                     else {
                         var msg = chat.message;
                         var slow;
-						var sender = bBot.room.userUtilities.lookupUser(chat.uid);
+						var sender = bBot.userUtilities.lookupUser(chat.uid);
 						var ap = sender.animePoints;
 						var arguments = msg.split(' ');
 						var contains = false;
