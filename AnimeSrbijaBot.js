@@ -288,22 +288,20 @@
 						add = 1;
 					}
 						possemo = bBot.emojimap[wemo.slice(first + add,second)];
-						if(typeof json == "undefined" )
+						if(typeof json != "undefined" )
 						{
-							isIs = true;
+							var possemo2 = ':'+wemo.slice(first + add,second)+':';
+							wemo = wemo.replace(possemo2,possemo);
+							firstFound = false;
+							console.log("Decoding lvl 5")
+							console.log(possemo2 + " " + possemo + " " + wemo)
 						}
-						var possemo2 = ':'+wemo.slice(first + add,second)+':';
-						wemo = wemo.replace(possemo2,possemo);
-						firstFound = false;
-						console.log("Decoding lvl 5")
-						console.log(possemo2 + " " + possemo + " " + wemo)
-					
-					if(isIs)
-					{
-						firstFound = true;
-						first = second;
-						console.log("Decoding lvl 6")
-					}
+						else
+						{
+							firstFound = true;
+							first = second;
+							console.log("Decoding lvl 6")
+						}
 				}
 			}
 			return wemo;
