@@ -283,7 +283,7 @@
 					second = i;
 					var possemo = "";
 					var add = 0;
-					if(first = 0)
+					if(first == 0)
 					{
 						add = 1;
 					}
