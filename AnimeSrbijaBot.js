@@ -279,15 +279,16 @@
 					firstFound = true;
 				}else if (wemo.charAt(i) == ':')
 				{
-					console.log("Decoding lvl 4")
-					second = i;
-					var possemo = "";
-					var add = 0;
-					if(first == 0)
-					{
-						add = 1;
-					}
+						console.log("Decoding lvl 4")
+						second = i;
+					    var possemo = "";
+						var add = 0;
+						if(first == 0)
+						{
+							add = 1;
+						}
 						possemo = bBot.emojimap[wemo.slice(first + add,second)];
+						console.log(first + " " + second)
 						if(typeof possemo != "undefined")
 						{
 							var possemo2 = ':'+wemo.slice(first + add,second)+':';
@@ -302,6 +303,7 @@
 							first = second;
 							console.log("Decoding lvl 6")
 						}
+						
 				}
 			}
 			return wemo;
