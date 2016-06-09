@@ -282,11 +282,11 @@
 						console.log("Decoding lvl 4")
 						second = i;
 					    var possemo = "";
-						possemo = bBot.emojimap[wemo.slice(first,second)];
+						possemo = bBot.emojimap[wemo.slice(first +1 ,second -1)];
 						console.log(first + " " + second)
 						if(typeof possemo != "undefined")
 						{
-							var possemo2 = ':'+wemo.slice(first,second)+':';
+							var possemo2 = ':'+wemo.slice(first +1,second -1)+':';
 							wemo = wemo.replace(possemo2,possemo);
 							firstFound = false;
 							console.log("Decoding lvl 5")
