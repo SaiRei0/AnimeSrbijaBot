@@ -268,7 +268,7 @@
 			var first = 0;
 			var second = 0;
 			var firstFound = false;
-			
+			var isIs = false;
 			for(var i = 0;i < s.length; i++)
 			{
 				console.log("Decoding lvl 2")
@@ -282,16 +282,19 @@
 					console.log("Decoding lvl 4")
 					second = i;
 					var possemo = "";
-					try 
-					{
+					
 						possemo = bBot.emojimap[wemo.slice(first + 1,second)];
+						if(typeof json == "undefined" )
+						{
+							isIs = true;
+						}
 						var possemo2 = ':'+wemo.slice(first + 1,second)+':';
-						wemo.replace(possemo2,possemo);
+						wemo = wemo.replace(possemo2,possemo);
 						firstFound = false;
 						console.log("Decoding lvl 5")
 						console.log(possemo2 + " " + possemo + " " + wemo)
-					}
-					catch(err)
+					
+					if(isIs)
 					{
 						firstFound = true;
 						first = second;
