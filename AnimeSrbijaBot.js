@@ -284,8 +284,8 @@
 					var possemo = "";
 					try 
 					{
-						possemo = bBot.emojimap[wemo.slice(first,second)];
-						var possemo2 = ':'+wemo.slice(first - 1,second + 1)+':';
+						possemo = bBot.emojimap[wemo.slice(first + 1,second)];
+						var possemo2 = ':'+wemo.slice(first + 1,second)+':';
 						wemo.replace(possemo2,possemo);
 						firstFound = false;
 						console.log("Decoding lvl 5")
