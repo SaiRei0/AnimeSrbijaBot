@@ -151,6 +151,14 @@
                 });
             }
         });
+		//emoji map load
+		$.get("https://raw.githubusercontent.com/Warix3/AnimeSrbijaBot/development/Lang/emojimap.json", function (json) {
+                    if (json !== null && typeof json !== "undefined") {
+                        if (typeof json === "string") json = JSON.parse(json);
+                        bBot.emojimap = json;
+                        cb();
+                    }
+        });
     };
 
     var retrieveSettings = function () {
@@ -251,7 +259,19 @@
         temp = null;
         return str;
     };
-
+	
+	function decodeEmoji(s)
+	{
+			var wemo = s;
+			for(var i = 0;i < s.length; i++)
+			{
+				if(wemo.charAt(i) == ':')
+				{
+					
+				}
+			}
+	};
+	
     var botCreator = "Benzi";
     var botMaintainer = "BP"
     var botCreatorIDs = ["3851534", "4105209"];
@@ -265,6 +285,7 @@
         cmdLink: "https://github.com/Warix3/AnimeSrbijaBot/blob/master/commands.md",
         chatLink: "https://rawgit.com/Warix3/AnimeSrbijaBot/master/Lang/cro.json",
         chat: null,
+		emojimap: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
@@ -859,6 +880,7 @@
             chat.message = linkFixer(chat.message);
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
+			chat.message = decodeEmoji(chat.message);
             for (var i = 0; i < bBot.room.users.length; i++) {
                 if (bBot.room.users[i].id === chat.uid) {
 					if(bBot.room.slowMode)
