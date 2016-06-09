@@ -259,7 +259,7 @@
     var bBot = {
         version: "v3.1.2",
         status: false,
-        name: "Dave1.0",
+        name: "KawaiBOT",
         loggedInID: "23625731",
         scriptLink: "https://cdn.rawgit.com/Po2kkz/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
         cmdLink: "https://github.com/Po2kkz/AnimeSrbijaBot/blob/master/commands.md",
@@ -269,7 +269,7 @@
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         settings: {
-            botName: "AnimeSrbija bot",
+            botName: "KawaiBOT",
             language: "croatian",
             chatLink: "https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/cro.json",
             roomLock: false, // Requires an extension to re-load the script
@@ -2464,7 +2464,7 @@
 
             killCommand: {
                 command: 'stop',
-                rank: 'bouncer',
+                rank: 'host',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
@@ -2923,7 +2923,7 @@
 
             reloadCommand: {
                 command: 'reload',
-                rank: 'bouncer',
+                rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
@@ -4296,7 +4296,7 @@ API.on(API.ADVANCE, meh);
 			//AnimeSrbija commands
 			slowCommand: {
                 command: 'slow',
-                rank: 'bouncer',
+                rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
