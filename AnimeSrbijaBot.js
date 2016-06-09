@@ -4346,6 +4346,8 @@ API.on(API.ADVANCE, meh);
 						var arguments = msg.split(' ');
 						var contains = false;
 						var reciever = "";
+						int c = 0;
+						
 						arguments = arguments.filter(checkNull);
 						
 						if(arguments[2].startsWith('@'))
@@ -4391,8 +4393,7 @@ API.on(API.ADVANCE, meh);
 						}
 						function getUsrnm(arg)
 						{
-							int c = 0;
-							c++
+							c++;
 							if(c > 3)
 							{
 								reciever = reciever + " " + arg;
