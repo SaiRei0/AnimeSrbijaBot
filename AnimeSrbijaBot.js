@@ -4350,7 +4350,7 @@ API.on(API.ADVANCE, meh);
 						
 						
 						arguments = arguments.filter(checkNull);
-                        if (arguments[0] == "!ap")
+                        if (arguments[0] == "!ap" && arguments.length > 1)
 						{
 							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa");
 						}
