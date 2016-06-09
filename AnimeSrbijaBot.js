@@ -4357,7 +4357,7 @@ API.on(API.ADVANCE, meh);
 						if(arguments.length > 3)
 						{
 						arguments.forEach(getReciever);
-                        if(arguments[1] == "bet" && isNaN(arguments[2]))
+                        if(arguments[1] == "bet" && isNaN(parseInt(arguments[2])))
 						{
 							var recieverU = lookupUserName(reciever);
 							if(recieverU.inRoom)
