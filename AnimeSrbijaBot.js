@@ -4340,13 +4340,12 @@ API.on(API.ADVANCE, meh);
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         var msg = chat.message;
-                        var slow;
 						var sender = bBot.userUtilities.lookupUser(chat.uid);
 						var ap = sender.animePoints;
 						var arguments = msg.split(' ');
 						var reciever = "";
 						var c = 0;
-						Random rand = new Random();
+						var rand = Math.random();
 						
 						
 						arguments = arguments.filter(checkNull);
@@ -4359,7 +4358,7 @@ API.on(API.ADVANCE, meh);
 						arguments.ForEach(getReciever);
                         if(arguments[1] == "bet" && isNan(arguments[2]))
 						{
-							var recieverU = lookupUser(reciever);
+							var recieverU = lookupUserName(reciever);
 							if(recieverU.inRoom)
 							{
 							var offer = parseInt(arguments[2]);
@@ -4387,6 +4386,7 @@ API.on(API.ADVANCE, meh);
 							sender.toWho = recieverU;
 							API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
 							API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
+
 							}else
 							{
 								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
@@ -4396,8 +4396,8 @@ API.on(API.ADVANCE, meh);
 						{
 							if(sender.better.inRoom)
 							{
-								int value = rand.nextInt(2)
-								if(value == 0)
+								
+								if(rand >= 0.5)
 								{
 									sender.AnimePoints += sender.offered;
 									sender.better.AnimePoints -= sender.offered;
