@@ -263,13 +263,35 @@
 	function decodeEmoji(s)
 	{
 			var wemo = s;
+			var first = 0;
+			var second = 0;
+			var firstFound = true;
+			
 			for(var i = 0;i < s.length; i++)
 			{
-				if(wemo.charAt(i) == ':')
+				if(wemo.charAt(i) == ':' && !firstFound)
 				{
-					
+					first = i;
+					firstFound = true;
+				}else if (wemo.charAt(i) == ':')
+				{
+					second = i;
+					var possemo = "";
+					try 
+					{
+						var possemo2 = ':'+possemo+':';
+						possemo = bBot.emojimap[wemo.slice(first,second)];
+						wemo.replace(possemo2,possemo);
+						firstFound = false;
+					}
+					catch(err)
+					{
+						firstFound = true;
+						first = second;
+					}
 				}
 			}
+			return wemo;
 	};
 	
     var botCreator = "Benzi";
