@@ -4392,6 +4392,7 @@ API.on(API.ADVANCE, meh);
 								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
 
 							}
+						}
                         }else if(arguments[1] == "accept" && sender.isBetting)
 						{
 							if(sender.better.inRoom)
@@ -4453,9 +4454,10 @@ API.on(API.ADVANCE, meh);
 							sender.isBetting = false;
 							sender.better = null;
 						}
-                    }
+                    
 			}
-			
+				
+				
         } 
         }
     };
