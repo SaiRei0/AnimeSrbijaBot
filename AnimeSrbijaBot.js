@@ -4350,6 +4350,7 @@ API.on(API.ADVANCE, meh);
 						
 						
 						arguments = arguments.filter(checkNull);
+						console.log(arguments);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
 							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa");
@@ -4357,45 +4358,50 @@ API.on(API.ADVANCE, meh);
 						if(arguments.length > 3)
 						{
 						arguments.forEach(getReciever);
+						console.log(reciever);
                         if(arguments[1] == "bet" && isNaN(parseInt(arguments[2])))
 						{
 							var recieverU = lookupUserName(reciever);
 							if(recieverU.inRoom)
 							{
-							var offer = parseInt(arguments[2]);
-							if(sender.isBetting)
-							{
-								return API.sendChat("/me @" + chat.un + " već si započeo okladu s nekim! Upiši !ap \"withdraw\" da ju prekineš!");
-							}
-							if(recieverU.isBetting)
-							{
-								return API.sendChat("/me @" + chat.un + " " + recieverU.username + " se već kladi s nekim!");
-							}
-							if(ap < offer)
-							{
-								return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu okladu!");
-							}
-							if(recieverU.animePoints < offer)
-							{
-								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu okladu! Ima samo: " + recieverU.animePoints);
-							}
-							
-							recieverU.isBetting = true;
-							recieverU.better = sender;
-							recieverU.offered = offer;
-							sender.isBetting = true;
-							sender.toWho = recieverU;
-							API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
-							API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
-							applychange();
+								var offer = parseInt(arguments[2]);
+								if(sender.isBetting)
+								{
+									return API.sendChat("/me @" + chat.un + " već si započeo okladu s nekim! Upiši !ap \"withdraw\" da ju prekineš!");
+								}
+								if(recieverU.isBetting)
+								{
+									return API.sendChat("/me @" + chat.un + " " + recieverU.username + " se već kladi s nekim!");
+								}
+								if(ap < offer)
+								{
+									return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu okladu!");
+								}
+								if(recieverU.animePoints < offer)
+								{
+									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu okladu! Ima samo: " + recieverU.animePoints);
+								}
+								
+								recieverU.isBetting = true;
+								recieverU.better = sender;
+								recieverU.offered = offer;
+								sender.isBetting = true;
+								sender.toWho = recieverU;
+								API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
+								API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
+								applychange();
 							}else
 							{
 								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
 
 							}
 						}
-                        }else if(arguments[1] == "accept" && sender.isBetting)
+                        }else if(arguments[1] == "accept")
 						{
+							if(!sender.isBetting)
+							{
+								return API.sendChat("/me @" + chat.un + " Nitko vas nije izazvao na okladu!");
+							}
 							if(sender.better.inRoom)
 							{
 								
@@ -4420,8 +4426,12 @@ API.on(API.ADVANCE, meh);
 								finishBet();
 								return API.sendChat("/me @" + chat.un + " osoba koja te izazvala na okladu je trenutno offline, oklada se prekida!");
 							}
-						}else if(arguments[1] == "decline" && sender.isBetting)
+						}else if(arguments[1] == "decline" )
 						{
+							if(!sender.isBetting)
+							{
+								return API.sendChat("/me @" + chat.un + " Nitko vas nije izazvao na okladu!");
+							}
 							finishBet();
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "withdraw")
