@@ -284,7 +284,7 @@
 					    var possemo = "";
 						possemo = bBot.emojimap[wemo.slice(first +1 ,second -1)];
 						console.log(first + " " + second)
-						if(typeof possemo != "undefined")
+						if(possemo != "undefined")
 						{
 							var possemo2 = ':'+wemo.slice(first +1,second -1)+':';
 							wemo = wemo.replace(possemo2,possemo);
