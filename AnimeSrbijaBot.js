@@ -11,7 +11,7 @@
     from the respected owner(s) and developer(s).
 	
 	Author: Toni Pejić (Warix3)
-	Github: Po2kkz
+	Github: Warix3
 	Website: warixmods.ga
 	E-mail: toni.pejic98@gmail.com
 */
@@ -120,7 +120,7 @@
     var loadChat = function (cb) {
         if (!cb) cb = function () {
         };
-        $.get("https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/langIndex.json", function (json) {
+        $.get("https://rawgit.com/Warix3/AnimeSrbijaBot/master/Lang/langIndex.json", function (json) {
             var link = bBot.chatLink;
             if (json !== null && typeof json !== "undefined") {
                 langIndex = json;
@@ -261,9 +261,9 @@
         status: false,
         name: "KawaiBOT",
         loggedInID: "23625731",
-        scriptLink: "https://cdn.rawgit.com/Po2kkz/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
-        cmdLink: "https://github.com/Po2kkz/AnimeSrbijaBot/blob/master/commands.md",
-        chatLink: "https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/cro.json",
+        scriptLink: "https://cdn.rawgit.com/Warix3/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
+        cmdLink: "https://github.com/Warix3/AnimeSrbijaBot/blob/master/commands.md",
+        chatLink: "https://rawgit.com/Warix3/AnimeSrbijaBot/master/Lang/cro.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
@@ -271,7 +271,7 @@
         settings: {
             botName: "KawaiBOT",
             language: "croatian",
-            chatLink: "https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/cro.json",
+            chatLink: "https://rawgit.com/Warix3/AnimeSrbijaBot/master/Lang/cro.json",
             roomLock: false, // Requires an extension to re-load the script
             startupCap: 1, // 1-200
             startupVolume: 0, // 0-100
