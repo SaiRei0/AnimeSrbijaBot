@@ -288,7 +288,7 @@
 						add = 1;
 					}
 						possemo = bBot.emojimap[wemo.slice(first + add,second)];
-						if(typeof json != "undefined" )
+						if(typeof json !== "undefined" )
 						{
 							var possemo2 = ':'+wemo.slice(first + add,second)+':';
 							wemo = wemo.replace(possemo2,possemo);
