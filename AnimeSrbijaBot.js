@@ -4331,7 +4331,7 @@ API.on(API.ADVANCE, meh);
                     }
                 }
             },
-			/*
+			
 			apCommand: {
 				command: 'ap',
                 rank: 'user',
@@ -4387,7 +4387,7 @@ API.on(API.ADVANCE, meh);
 							sender.toWho = recieverU;
 							API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
 							API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
-
+							applychange();
 							}else
 							{
 								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
@@ -4429,6 +4429,7 @@ API.on(API.ADVANCE, meh);
 							sender.isBetting = false;
 							sender.toWho.isBetting = false;
 							sender.toWho = null;
+							applychange();
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "leaderboard")
 						{
@@ -4454,6 +4455,12 @@ API.on(API.ADVANCE, meh);
 							sender.better.isBetting = false;
 							sender.isBetting = false;
 							sender.better = null;
+							applychange();
+						}
+						function applychange()
+						{
+							bBot.userUtilities.lookupUser(chat.uid) = sender;
+							lookupUserName(reciever) = recieverU;
 						}
                     
 			}
@@ -4461,7 +4468,7 @@ API.on(API.ADVANCE, meh);
 				
         } 
         }
-		*/
+		
 		}
     };
 
