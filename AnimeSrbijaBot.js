@@ -4331,6 +4331,7 @@ API.on(API.ADVANCE, meh);
                     }
                 }
             },
+			/*
 			apCommand: {
 				command: 'ap',
                 rank: 'user',
@@ -4460,6 +4461,7 @@ API.on(API.ADVANCE, meh);
 				
         } 
         }
+		*/
     };
 
     loadChat(bBot.startup);
