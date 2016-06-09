@@ -151,16 +151,16 @@
                 });
             }
         });
-		//emoji map load
+    };
+	//emoji map load
+	var loadEmoji = function () {
 		$.get("https://raw.githubusercontent.com/Warix3/AnimeSrbijaBot/development/Lang/emojimap.json", function (json) {
                     if (json !== null && typeof json !== "undefined") {
                         if (typeof json === "string") json = JSON.parse(json);
                         bBot.emojimap = json;
-                        cb();
                     }
         });
-    };
-
+};
     var retrieveSettings = function () {
         var settings = JSON.parse(localStorage.getItem("bBotsettings"));
         if (settings !== null) {
@@ -1539,6 +1539,7 @@
             API.chatLog('Avatars capped at ' + bBot.settings.startupCap);
             API.chatLog('Volume set to ' + bBot.settings.startupVolume);
             loadChat(API.sendChat(subChat(bBot.chat.online, {botname: bBot.settings.botName, version: bBot.version})));
+			loadEmoji();
         },
         commands: {
             executable: function (minRank, chat) {
