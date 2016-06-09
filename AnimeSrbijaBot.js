@@ -261,7 +261,7 @@
         status: false,
         name: "Dave1.0",
         loggedInID: "23625731",
-        scriptLink: "https://github.com/Po2kkz/AnimeSrbijaBot/blob/master/AnimeSrbijaBot.js",
+        scriptLink: "https://cdn.rawgit.com/Po2kkz/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
         cmdLink: "https://github.com/Po2kkz/AnimeSrbijaBot/blob/master/commands.md",
         chatLink: "https://rawgit.com/Po2kkz/AnimeSrbijaBot/master/Lang/cro.json",
         chat: null,
