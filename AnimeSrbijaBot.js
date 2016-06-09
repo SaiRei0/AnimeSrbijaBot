@@ -4330,8 +4330,8 @@ API.on(API.ADVANCE, meh);
                         
                     }
                 }
-            }
-	/*		apCommand: {
+            },
+			apCommand: {
 				command: 'ap',
                 rank: 'user',
                 type: 'startsWith',
@@ -4345,13 +4345,14 @@ API.on(API.ADVANCE, meh);
 						var ap = sender.animePoints;
 						var arguments = msg.split(' ');
 						var contains = false;
+						var reciever = "";
 						arguments = arguments.filter(checkNull);
 						
 						if(arguments[2].startsWith('@'))
 						{
 							arguments[2] = arguments[2].substring(1);
 						}
-						bBot.room.users.forEach();
+						bBot.room.users.forEach(containsUser);
                         if (msg.length === cmd.length)
 						{
 							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa");
@@ -4363,8 +4364,8 @@ API.on(API.ADVANCE, meh);
 							{
 								return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu opkladu!");
 							}
-							
-							var user = lookupUser(msg.substring(cmd.length + 4));
+							arguments.ForEach();
+							var user = lookupUser(arguments[arguments.length - 3]);
 							if(user.animePoints < offer)
 							{
 								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu opkladu! Ima samo: " + user.animePoints);
@@ -4388,10 +4389,19 @@ API.on(API.ADVANCE, meh);
 								contains = true;
 							}
 						}
+						function getUsrnm(arg)
+						{
+							int c = 0;
+							c++
+							if(c > 3)
+							{
+								reciever = reciever + " " + arg;
+							}
+						}
                     }
 			}
 			
-        } */
+        } 
         }
     };
 
