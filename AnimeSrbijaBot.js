@@ -283,15 +283,20 @@
 						second = i;
 					    var possemo = "";
 						var add = 0;
+						var add2 = 0;
 						if(first == 0)
 						{
 							add = 1;
 						}
-						possemo = bBot.emojimap[wemo.slice(first + add,second)];
+						else
+						{
+							add2 = 1;
+						}
+						possemo = bBot.emojimap[wemo.slice(first + add,second + add2)];
 						console.log(first + " " + second)
 						if(typeof possemo != "undefined")
 						{
-							var possemo2 = ':'+wemo.slice(first + add,second)+':';
+							var possemo2 = ':'+wemo.slice(first + add,second + add2)+':';
 							wemo = wemo.replace(possemo2,possemo);
 							firstFound = false;
 							console.log("Decoding lvl 5")
