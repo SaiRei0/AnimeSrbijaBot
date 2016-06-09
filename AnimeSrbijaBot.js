@@ -4346,7 +4346,7 @@ API.on(API.ADVANCE, meh);
 						var arguments = msg.split(' ');
 						var contains = false;
 						var reciever = "";
-						int c = 0;
+						var c = 0;
 						
 						arguments = arguments.filter(checkNull);
 						
