@@ -855,6 +855,7 @@
             }
         },
         eventChat: function (chat) {
+			console.log(chat);
             chat.message = linkFixer(chat.message);
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
@@ -2464,7 +2465,7 @@
 
             killCommand: {
                 command: 'stop',
-                rank: 'host',
+                rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
