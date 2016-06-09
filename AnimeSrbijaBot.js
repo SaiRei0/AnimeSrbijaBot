@@ -4356,7 +4356,7 @@ API.on(API.ADVANCE, meh);
 						}
 						if(arguments.length > 3)
 						{
-						arguments.ForEach(getReciever);
+						arguments.forEach(getReciever);
                         if(arguments[1] == "bet" && isNan(arguments[2]))
 						{
 							var recieverU = lookupUserName(reciever);
