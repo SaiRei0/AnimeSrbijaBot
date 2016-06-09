@@ -158,6 +158,7 @@
                     if (json !== null && typeof json !== "undefined") {
                         if (typeof json === "string") json = JSON.parse(json);
                         bBot.emojimap = json;
+						console.log("Emoji map loaded!");
                     }
         });
 };
@@ -262,19 +263,23 @@
 	
 	function decodeEmoji(s)
 	{
+		console.log("Decoding lvl 1")
 			var wemo = s;
 			var first = 0;
 			var second = 0;
-			var firstFound = true;
+			var firstFound = false;
 			
 			for(var i = 0;i < s.length; i++)
 			{
+				console.log("Decoding lvl 2")
 				if(wemo.charAt(i) == ':' && !firstFound)
 				{
+					console.log("Decoding lvl 3")
 					first = i;
 					firstFound = true;
 				}else if (wemo.charAt(i) == ':')
 				{
+					console.log("Decoding lvl 4")
 					second = i;
 					var possemo = "";
 					try 
@@ -283,11 +288,13 @@
 						possemo = bBot.emojimap[wemo.slice(first,second)];
 						wemo.replace(possemo2,possemo);
 						firstFound = false;
+						console.log("Decoding lvl 5")
 					}
 					catch(err)
 					{
 						firstFound = true;
 						first = second;
+						console.log("Decoding lvl 6")
 					}
 				}
 			}
