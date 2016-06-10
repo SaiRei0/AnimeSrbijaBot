@@ -4587,7 +4587,7 @@ API.on(API.ADVANCE, meh);
 								var stream = "";
 								for(i = 2; i < arguments.length; i++)
 								{
-									stream += arguments[i];
+									stream += (' ' + arguments[i]);
 								}
 								return stream;
 							}
