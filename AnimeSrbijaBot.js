@@ -269,6 +269,7 @@
 			var second = 0;
 			var firstFound = false;
 			var isIs = false;
+			var decoded1 = false;
 			for(var i = 0;i < s.length; i++)
 			{
 				console.log("Decoding lvl 2")
@@ -277,7 +278,7 @@
 					console.log("Decoding lvl 3")
 					first = i;
 					firstFound = true;
-				}else if (wemo.charAt(i) == ':')
+				}else if (wemo.charAt(i) == ':' && !decoded1)
 				{
 						console.log("Decoding lvl 4")
 						second = i;
@@ -291,6 +292,7 @@
 							firstFound = false;
 							console.log("Decoding lvl 5")
 							console.log(possemo2 + " " + possemo + " " + wemo)
+							decoded1 = true;
 						}
 						else
 						{
@@ -299,6 +301,10 @@
 							console.log("Decoding lvl 6")
 						}
 						
+				}else if(wemo.charAt(i) == ':')
+				{
+					firstFound = false;
+					decodeEmoji(wemo);
 				}
 			}
 			return wemo;
