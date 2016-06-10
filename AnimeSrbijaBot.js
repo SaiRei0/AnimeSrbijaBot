@@ -4583,7 +4583,7 @@ API.on(API.ADVANCE, meh);
 							}
 							function getMessage()
 							{
-								var stream;
+								var stream = "";
 								for(var i = 2; i < arguments.length; i++)
 								{
 									stream += arguments[i];
