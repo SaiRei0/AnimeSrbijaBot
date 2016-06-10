@@ -4558,6 +4558,7 @@ API.on(API.ADVANCE, meh);
 							var arguments = chat.message.split(' ');
 							var amsg = getMessage();
 							console.log(amsg);
+							console.log(arguments);
 							if(arguments.length == 1 && arguments[0] == "!announce")
 							{
 								API.sendChat("/me @" + chat.un + " upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
@@ -4584,7 +4585,7 @@ API.on(API.ADVANCE, meh);
 							function getMessage()
 							{
 								var stream = "";
-								for(var i = 2; i < arguments.length; i++)
+								for(i = 2; i < arguments.length; i++)
 								{
 									stream += arguments[i];
 								}
