@@ -269,6 +269,7 @@
 			var second = 0;
 			var firstFound = false;
 			var isIs = false;
+			
 			for(var i = 0;i < s.length; i++)
 			{
 				console.log("Decoding lvl 2");
@@ -291,7 +292,7 @@
 							firstFound = false;
 							console.log("Decoding lvl 5");
 							console.log(possemo2 + " " + possemo + " " + s);
-							decodeEmoji(s);
+							s = decodeEmoji(s);
 						}
 						else
 						{
@@ -302,6 +303,7 @@
 						
 				}
 			}
+			
 			console.log("Last: "+s);
 			return s;
 	};
