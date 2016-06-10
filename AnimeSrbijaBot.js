@@ -290,7 +290,7 @@
 							s = wemo.replace(possemo2,possemo);
 							firstFound = false;
 							console.log("Decoding lvl 5")
-							console.log(possemo2 + " " + possemo + " " + wemo)
+							console.log(possemo2 + " " + possemo + " " + s)
 							decodeEmoji(s);
 						}
 						else
