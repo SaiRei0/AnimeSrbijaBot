@@ -463,7 +463,10 @@
             },
             usersUsedThor: [],
 			SlowMode: false,
-			SlowModeDuration: 10
+			SlowModeDuration: 10,
+			announceActive = false,
+			announceMessage = null,
+			announceStartTime = null
         },
 
         User: function (id, name) {
@@ -1172,6 +1175,12 @@
                 }, remaining + 5000);
             }
             storeToStorage();
+			//AnimeSrbija announce command:
+			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceTime) >= bBot.room.announceStartTime))
+			{
+				API.sendChat("/me " + bBot.room.announceMessage);
+				bBot.room.announceStartTime = Date.now();
+			}
         },
         eventWaitlistupdate: function (users) {
             if (users.length < 50) {
@@ -4537,9 +4546,70 @@ API.on(API.ADVANCE, meh);
 				
 				
         } 
-        }
-		
-		}
+        },
+			announceCommand: {
+					command: 'announce',
+					rank: 'user',
+					type: 'startsWith',
+					functionality: function (chat, cmd) {
+						if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+						if (!bBot.commands.executable(this.rank, chat)) return void (0);
+						else {
+							var arguments = chat.message.split(' ');
+							var amsg = getMessage(arguments);
+							
+							if(arguments.length == 1 && arguments[0] == "!announce")
+							{
+								API.sendChat("/me @" + chat.un + " upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
+							}else if(arguments[0] == "!announce" && isNaN(parseInt(arguments[1])) && arguments[2] != null )
+							{
+								if(bBot.room.announceActive = false)
+								{
+									announceActivate();
+								}
+								else
+								{
+									announceStop();
+									announceActivate();
+								}
+								
+							}else if(arguments[0] == "!announce" && arguments[1] == "stop")
+							{
+								announceStop();
+							}else
+							{
+								API.sendChat("/me @" + chat.un + " neispravna komanda! upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
+							}
+							function getMessage()
+							{
+								var stream;
+								for(int i = 2; i < arguments.length - 1 ;i++)
+								{
+									stream += arguments[i];
+								}
+								return stream;
+							}
+							function announceStop()
+							{
+								bBot.room.announceActive = false;
+								bBot.room.announceMessage = null;
+								bBot.room.announceStartTime = null;
+								bBot.room.announceTime = null;
+								API.sendChat("/me @" + chat.un + " Uspješno ugašeno objavljivanje!");
+							}
+							function announceActivate()
+							{
+								bBot.room.announceActive = true;
+								bBot.room.announceMessage = amsg;
+								bBot.room.announceStartTime = Date.now();
+								bBot.room.announceTime = arguments[1] * 60 * 1000;
+								API.sendChat("/me @" + chat.un + " Uspješno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
+							}
+						}
+					}
+				}
+			
+			}
     };
 
     loadChat(bBot.startup);
