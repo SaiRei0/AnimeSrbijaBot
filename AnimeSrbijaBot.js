@@ -4568,8 +4568,7 @@ API.on(API.ADVANCE, meh);
 								{
 									console.log(bBot.room.announceActive);
 									announceActivate();
-								}
-								else
+								}else
 								{
 									announceStop();
 									announceActivate();
@@ -4593,6 +4592,7 @@ API.on(API.ADVANCE, meh);
 							}
 							function announceStop()
 							{
+								console.log("stopeedeodeddddddddddddd");
 								if(!bBot.room.announceActive)
 								{
 								API.sendChat("/me @" + chat.un + " objavljivanje je već ugašeno!");
