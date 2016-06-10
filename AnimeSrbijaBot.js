@@ -4556,7 +4556,7 @@ API.on(API.ADVANCE, meh);
 						if (!bBot.commands.executable(this.rank, chat)) return void (0);
 						else {
 							var arguments = chat.message.split(' ');
-							var amsg = getMessage(arguments);
+							var amsg = getMessage();
 							
 							if(arguments.length == 1 && arguments[0] == "!announce")
 							{
