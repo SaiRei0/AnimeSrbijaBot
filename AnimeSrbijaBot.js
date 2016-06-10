@@ -269,7 +269,6 @@
 			var second = 0;
 			var firstFound = false;
 			var isIs = false;
-			var decoded1 = false;
 			for(var i = 0;i < s.length; i++)
 			{
 				console.log("Decoding lvl 2")
@@ -278,7 +277,7 @@
 					console.log("Decoding lvl 3")
 					first = i;
 					firstFound = true;
-				}else if (wemo.charAt(i) == ':' && !decoded1)
+				}else if (wemo.charAt(i) == ':')
 				{
 						console.log("Decoding lvl 4")
 						second = i;
@@ -288,11 +287,11 @@
 						if(possemo != "undefined")
 						{
 							var possemo2 = ':'+wemo.slice(first +1,second)+':';
-							wemo = wemo.replace(possemo2,possemo);
+							s = wemo.replace(possemo2,possemo);
 							firstFound = false;
 							console.log("Decoding lvl 5")
 							console.log(possemo2 + " " + possemo + " " + wemo)
-							decoded1 = true;
+							
 						}
 						else
 						{
@@ -301,14 +300,9 @@
 							console.log("Decoding lvl 6")
 						}
 						
-				}else if(wemo.charAt(i) == ':')
-				{
-					console.log("Decoding lvl 6")
-					firstFound = false;
-					decodeEmoji(wemo);
 				}
 			}
-			return wemo;
+			return s;
 	};
 	
     var botCreator = "Benzi";
