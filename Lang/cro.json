@@ -209,7 +209,7 @@
     "blacklist": " :white_check_mark: Blacklist",
 
 
-    "isopen": "/me [!roulette] @djs :white_check_mark: Rulet je uspešno pokrenut. Kucaj !join da bi uæestvovao. !leave da bi napustio.",
+    "isopen": "/me [!roulette] @djs :white_check_mark: Rulet je uspešno pokrenut. Kucaj !join da bi učestvovao. !leave da bi napustio.",
     "winnerpicked": "/me :white_check_mark: Pobednik je odabran! @%%NAME%% na poziciju %%POSITION%%.",
     "ball": "/me [!8ball] %%NAME%%, bote \"%%QUESTION%%\"? - %%BOTNAME%%: \"%%RESPONSE%%\"",
     "notghosting": "[%%NAME1%%] %%NAME2%% je regularan korisnik u sobi, a ne vrsta korisnika podešena da radi automatski.",
