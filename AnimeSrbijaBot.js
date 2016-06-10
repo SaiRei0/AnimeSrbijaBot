@@ -291,7 +291,7 @@
 							firstFound = false;
 							console.log("Decoding lvl 5")
 							console.log(possemo2 + " " + possemo + " " + wemo)
-							
+							decodeEmoji(s);
 						}
 						else
 						{
