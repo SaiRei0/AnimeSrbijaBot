@@ -302,6 +302,7 @@
 						
 				}
 			}
+			console.log("Last: "+s);
 			return s;
 	};
 	
