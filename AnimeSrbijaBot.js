@@ -4584,7 +4584,7 @@ API.on(API.ADVANCE, meh);
 							function getMessage()
 							{
 								var stream;
-								for(var i = 2; i < arguments.length - 1; i++)
+								for(var i = 2; i < arguments.length; i++)
 								{
 									stream += arguments[i];
 								}
