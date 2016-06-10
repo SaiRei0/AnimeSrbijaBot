@@ -317,7 +317,7 @@
         status: false,
         name: "KawaiBOT",
         loggedInID: "23625731",
-        scriptLink: "https://cdn.rawgit.com/Warix3/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
+        scriptLink: "https://rawgit.com/Warix3/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
         cmdLink: "https://github.com/Warix3/AnimeSrbijaBot/blob/master/commands.md",
         chatLink: "https://rawgit.com/Warix3/AnimeSrbijaBot/master/Lang/cro.json",
         chat: null,
