@@ -271,10 +271,10 @@
 			var isIs = false;
 			for(var i = 0;i < s.length; i++)
 			{
-				console.log("Decoding lvl 2")
+				console.log("Decoding lvl 2");
 				if(wemo.charAt(i) == ':' && !firstFound)
 				{
-					console.log("Decoding lvl 3")
+					console.log("Decoding lvl 3");
 					first = i;
 					firstFound = true;
 				}else if (wemo.charAt(i) == ':')
@@ -283,20 +283,21 @@
 						second = i;
 					    var possemo = "";
 						possemo = bBot.emojimap[wemo.slice(first +1 ,second)];
-						console.log(first + " " + second)
+						console.log(first + " " + second);
 						if(possemo != "undefined")
 						{
 							var possemo2 = ':'+wemo.slice(first +1,second)+':';
 							s = s.replace(possemo2,possemo);
 							firstFound = false;
-							console.log("Decoding lvl 5")
-							console.log(possemo2 + " " + possemo + " " + s)
+							console.log("Decoding lvl 5");
+							console.log(possemo2 + " " + possemo + " " + s);
+							decodeEmoji(s);
 						}
 						else
 						{
 							firstFound = true;
 							first = second;
-							console.log("Decoding lvl 6")
+							console.log("Decoding lvl 6");
 						}
 						
 				}
