@@ -4557,7 +4557,7 @@ API.on(API.ADVANCE, meh);
 						else {
 							var arguments = chat.message.split(' ');
 							var amsg = getMessage();
-							
+							console.log(amsg);
 							if(arguments.length == 1 && arguments[0] == "!announce")
 							{
 								API.sendChat("/me @" + chat.un + " upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
