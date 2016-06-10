@@ -287,7 +287,7 @@
 						if(possemo != "undefined")
 						{
 							var possemo2 = ':'+wemo.slice(first +1,second)+':';
-							s = wemo.replace(possemo2,possemo);
+							s = s.replace(possemo2,possemo);
 							firstFound = false;
 							console.log("Decoding lvl 5")
 							console.log(possemo2 + " " + possemo + " " + s)
