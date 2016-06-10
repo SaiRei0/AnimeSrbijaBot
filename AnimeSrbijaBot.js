@@ -1176,7 +1176,7 @@
             }
             storeToStorage();
 			//AnimeSrbija announce command:
-			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceTime) >= bBot.room.announceStartTime))
+			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
 			{
 				API.sendChat("/me " + bBot.room.announceMessage);
 				bBot.room.announceStartTime = Date.now();
