@@ -464,9 +464,9 @@
             usersUsedThor: [],
 			SlowMode: false,
 			SlowModeDuration: 10,
-			announceActive = false,
-			announceMessage = null,
-			announceStartTime = null
+			announceActive: false,
+			announceMessage: null,
+			announceStartTime: null
         },
 
         User: function (id, name) {
