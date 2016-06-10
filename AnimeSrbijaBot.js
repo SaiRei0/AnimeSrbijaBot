@@ -303,6 +303,7 @@
 						
 				}else if(wemo.charAt(i) == ':')
 				{
+					console.log("Decoding lvl 6")
 					firstFound = false;
 					decodeEmoji(wemo);
 				}
