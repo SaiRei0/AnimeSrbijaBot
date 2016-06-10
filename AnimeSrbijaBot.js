@@ -4556,7 +4556,7 @@ API.on(API.ADVANCE, meh);
 						if (!bBot.commands.executable(this.rank, chat)) return void (0);
 						else {
 							var arguments = chat.message.split(' ');
-							var amsg = getMessage();
+							var amsg = getMessage(arguments);
 							console.log(amsg);
 							console.log(arguments);
 							if(arguments.length == 1 && arguments[0] == "!announce")
@@ -4568,21 +4568,21 @@ API.on(API.ADVANCE, meh);
 								if(!bBot.room.announceActive)
 								{
 									console.log(bBot.room.announceActive);
-									announceActivate();
+									announceActivate(arguments,amsg);
 								}else
 								{
-									announceStop();
-									announceActivate();
+									announceStop(arguments,amsg);
+									announceActivate(arguments,amsg);
 								}
 								
 							}else if(arguments[0] == "!announce" && arguments[1] == "stop")
 							{
-								announceStop();
+								announceStop(arguments,amsg);
 							}else
 							{
 								API.sendChat("/me @" + chat.un + " neispravna komanda! upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
 							}
-							function getMessage()
+							function getMessage(arguments)
 							{
 								var stream = "";
 								for(i = 2; i < arguments.length; i++)
@@ -4591,7 +4591,7 @@ API.on(API.ADVANCE, meh);
 								}
 								return stream;
 							}
-							function announceStop()
+							function announceStop(arguments,amsg)
 							{
 								console.log("stopeedeodeddddddddddddd");
 								if(!bBot.room.announceActive)
@@ -4606,7 +4606,7 @@ API.on(API.ADVANCE, meh);
 								API.sendChat("/me @" + chat.un + " Uspješno ugašeno objavljivanje!");
 								}
 							}
-							function announceActivate()
+							function announceActivate(arguments,amsg)
 							{
 								bBot.room.announceActive = true;
 								bBot.room.announceMessage = amsg;
