@@ -4561,7 +4561,7 @@ API.on(API.ADVANCE, meh);
 							if(arguments.length == 1 && arguments[0] == "!announce")
 							{
 								API.sendChat("/me @" + chat.un + " upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
-							}else if(arguments[0] == "!announce" && isNaN(parseInt(arguments[1])) && arguments[2] != null )
+							}else if(arguments[0] == "!announce" && isNaN(arguments[1]) && arguments[2] != null )
 							{
 								if(bBot.room.announceActive = false)
 								{
@@ -4591,11 +4591,17 @@ API.on(API.ADVANCE, meh);
 							}
 							function announceStop()
 							{
+								if(bBot.room.announceActive = false)
+								{
+								API.sendChat("/me @" + chat.un + " objavljivanje je već ugašeno!");
+								}else
+								{
 								bBot.room.announceActive = false;
 								bBot.room.announceMessage = null;
 								bBot.room.announceStartTime = null;
 								bBot.room.announceTime = null;
 								API.sendChat("/me @" + chat.un + " Uspješno ugašeno objavljivanje!");
+								}
 							}
 							function announceActivate()
 							{
