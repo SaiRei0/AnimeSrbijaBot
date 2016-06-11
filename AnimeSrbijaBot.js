@@ -310,7 +310,7 @@
 	
     var botCreator = "Warix3,Benzi";
     var botMaintainer = "Warix3"
-    var botCreatorIDs = ["3851534", "4105209",""];
+    var botCreatorIDs = ["4329684"];
 
     var bBot = {
         version: "v3.1.2",
