@@ -263,7 +263,7 @@
 	
 	function decodeEmoji(s)
 	{
-		console.log("Decoding lvl 1")
+		
 			var wemo = s;
 			var first = 0;
 			var second = 0;
@@ -272,39 +272,30 @@
 			
 			for(var i = 0;i < s.length; i++)
 			{
-				console.log("Decoding lvl 2");
 				if(wemo.charAt(i) == ':' && !firstFound)
 				{
-					console.log("Decoding lvl 3");
 					first = i;
 					firstFound = true;
 				}else if (wemo.charAt(i) == ':')
 				{
-						console.log("Decoding lvl 4")
 						second = i;
 					    var possemo = "";
 						possemo = bBot.emojimap[wemo.slice(first +1 ,second)];
-						console.log(first + " " + second);
 						if(possemo != null)
 						{
 							var possemo2 = ':'+wemo.slice(first +1,second)+':';
 							s = s.replace(possemo2,possemo);
 							firstFound = false;
-							console.log("Decoding lvl 5");
-							console.log(possemo2 + " " + possemo + " " + s);
 							s = decodeEmoji(s);
 						}
 						else
 						{
 							firstFound = true;
 							first = second;
-							console.log("Decoding lvl 6");
 						}
 						
 				}
 			}
-			
-			console.log("Last: "+s);
 			return s;
 	};
 	
@@ -332,7 +323,7 @@
             roomLock: false, // Requires an extension to re-load the script
             startupCap: 1, // 1-200
             startupVolume: 0, // 0-100
-            startupEmoji: true, // true or false
+            startupEmoji: false, // true or false
             autowoot: true,
             autoskip: false,
             smartSkip: true,
@@ -916,7 +907,6 @@
             }
         },
         eventChat: function (chat) {
-			console.log(chat);
             chat.message = linkFixer(chat.message);
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
@@ -4439,11 +4429,11 @@ API.on(API.ADVANCE, meh);
 								}
 							}
 							console.log(reciever);
-							if(arguments[1] == "bet" && !isNaN(arguments[2]))
+							if(arguments[1] == "bet" && !isNaN(arguments[2]) && arguments[2] > 0)
 							{
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
 								console.log(recieverU.inRoom);
-								if(recieverU == null || recieverU.inRoom)
+								if(recieverU == null || recieverU.inRoom && recieverU != sender)
 								{
 									var offer = parseInt(arguments[2]);
 									if(sender.isBetting)
@@ -4470,10 +4460,10 @@ API.on(API.ADVANCE, meh);
 									sender.toWho = recieverU;
 									API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
 									API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
-									applychange();
+									
 								}else
 								{
-									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
+									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online! , ili si se pokušao kladiti sam s sobom!");
 								}
 							}
 							{
@@ -4492,21 +4482,21 @@ API.on(API.ADVANCE, meh);
 								{
 									sender.AnimePoints += sender.offered;
 									sender.better.AnimePoints -= sender.offered;
-									finishBet();
+									finishBet(sender);
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								else
 								{
 									sender.AnimePoints -= sender.offered;
 									sender.better.AnimePoints += sender.offered;
-									finishBet();
+									finishBet(sender);
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								
 							}
 							else
 							{
-								finishBet();
+								finishBet(sender);
 								return API.sendChat("/me @" + chat.un + " osoba koja te izazvala na okladu je trenutno offline, oklada se prekida!");
 							}
 						}else if(arguments[1] == "decline" )
@@ -4515,14 +4505,14 @@ API.on(API.ADVANCE, meh);
 							{
 								return API.sendChat("/me @" + chat.un + " Nitko vas nije izazvao na okladu!");
 							}
-							finishBet();
+							finishBet(sender);
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "withdraw")
 						{
 							sender.isBetting = false;
 							sender.toWho.isBetting = false;
 							sender.toWho = null;
-							applychange();
+							
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "leaderboard")
 						{
@@ -4543,22 +4533,14 @@ API.on(API.ADVANCE, meh);
 								reciever = reciever + " " + arg;
 							}
 						}
-						function finishBet()
+						function finishBet(sender)
 						{
 							sender.better.isBetting = false;
 							sender.isBetting = false;
 							sender.better = null;
-							applychange();
+							
 						}
-						function applychange()
-						{
-							bBot.userUtilities.lookupUser(chat.uid) = sender;
-							bBot.userUtilities.lookupUserName(reciever) = recieverU;
-						}
-                    
-			}
-				
-				
+			}		
         } 
         },
 			announceCommand: {
@@ -4571,17 +4553,13 @@ API.on(API.ADVANCE, meh);
 						else {
 							var arguments = chat.message.split(' ');
 							var amsg = getMessage(arguments);
-							console.log(amsg);
-							console.log(arguments);
 							if(arguments.length == 1 && arguments[0] == "!announce")
 							{
 								API.sendChat("/me @" + chat.un + " upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
 							}else if(arguments[0] == "!announce" && !isNaN(arguments[1]) && arguments[2] != null )
 							{
-								console.log(bBot.room.announceActive);
 								if(!bBot.room.announceActive)
 								{
-									console.log(bBot.room.announceActive);
 									announceActivate(arguments,amsg);
 								}else
 								{
