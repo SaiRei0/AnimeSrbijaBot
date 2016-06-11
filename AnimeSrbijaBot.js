@@ -4439,9 +4439,9 @@ API.on(API.ADVANCE, meh);
 								}
 							}
 							console.log(reciever);
-							if(arguments[1] == "bet" && isNaN(parseInt(arguments[2])))
+							if(arguments[1] == "bet" && !isNaN(arguments[2]))
 							{
-								var recieverU = lookupUserName(reciever);
+								var recieverU = bBot.userUtilities.lookupUserName(reciever);
 								if(recieverU == null || recieverU.inRoom)
 								{
 									var offer = parseInt(arguments[2]);
@@ -4549,7 +4549,7 @@ API.on(API.ADVANCE, meh);
 						function applychange()
 						{
 							bBot.userUtilities.lookupUser(chat.uid) = sender;
-							lookupUserName(reciever) = recieverU;
+							bBot.userUtilities.lookupUserName(reciever) = recieverU;
 						}
                     
 			}
