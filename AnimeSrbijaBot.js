@@ -1173,7 +1173,7 @@
 				bBot.room.announceStartTime = Date.now();
 			}
 			//AnimeSrbija Anime points
-			var reward = obj.lastplay.score.positive + obj.lastplay.score.grabs - obj.lastplay.score.negative;
+			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
 			obj.dj.AnimePoints += reward;
 			API.sendChat("/me @" + obj.dj.username + "Osvojio si " + reward + "AnimePointsa! upisi \"!ap help\" da vidis što možeš s njima!");
         },
