@@ -2279,7 +2279,7 @@
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof bBot.settings.fbLink === "string")
-                            API.sendChat(subChat(bBot.chat.facebook, {name: chat.un, link: bBot.settings.fbLink}));
+                            API.sendChat(subChat(bBot.chat.facebook, {name: chat.un, link: "https://www.facebook.com/AnimeSrbija2013/"}));
                     }
                 }
             },
@@ -3084,7 +3084,7 @@
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof bBot.settings.rulesLink === "string")
-                            return API.sendChat(subChat(bBot.chat.roomrules, {link: bBot.settings.rulesLink}));
+                            return API.sendChat(subChat(bBot.chat.roomrules, {link: "http://pastebin.com/FpyDtcJE"}));
                     }
                 }
             },
@@ -4358,7 +4358,7 @@ API.on(API.ADVANCE, meh);
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof bBot.settings.youtubeLink === "string")
-                            API.sendChat(subChat(bBot.chat.youtube, {name: chat.un, link: bBot.settings.youtubeLink}));
+                            API.sendChat(subChat(bBot.chat.youtube, {name: chat.un, link: "https://www.youtube.com/user/animesrbija2013"}));
                     }
                 }
             },
@@ -4593,7 +4593,6 @@ API.on(API.ADVANCE, meh);
 							}
 							function announceStop(arguments,amsg)
 							{
-								console.log("stopeedeodeddddddddddddd");
 								if(!bBot.room.announceActive)
 								{
 								API.sendChat("/me @" + chat.un + " objavljivanje je već ugašeno!");
