@@ -1172,6 +1172,10 @@
 				API.sendChat("/me " + bBot.room.announceMessage);
 				bBot.room.announceStartTime = Date.now();
 			}
+			//AnimeSrbija Anime points
+			var reward = obj.score.positive + obj.score.grabs - obj.score.negative
+			obj.dj.AnimePoints += reward;
+			API.sendChat("/me @" + obj.dj.username + "Osvojio si " + reward + "AnimePointsa! upisi \"!ap help\" da vidis što možeš s njima!");
         },
         eventWaitlistupdate: function (users) {
             if (users.length < 50) {
@@ -4431,6 +4435,11 @@ API.on(API.ADVANCE, meh);
 							console.log(reciever);
 							if(arguments[1] == "bet" && !isNaN(arguments[2]) && arguments[2] > 0)
 							{
+								reciever = reciever.trim();
+								if(reciever.startsWith("@"))
+								{
+									reciever = reciever.trim().substring(1);
+								}
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
 								console.log(recieverU.inRoom);
 								if(recieverU == null || recieverU.inRoom && recieverU != sender)
@@ -4467,7 +4476,7 @@ API.on(API.ADVANCE, meh);
 								}
 							}
 							{
-								return API.sendChat("/me @" + chat.un + " Neispravna komanda!");
+								return API.sendChat("/me @" + chat.un + " Neispravna komanda! Upiši !ap help da vidiš listu komandi!");
 							}
                         }else if(arguments[1] == "accept")
 						{
@@ -4519,7 +4528,7 @@ API.on(API.ADVANCE, meh);
 							
 						}else
 						{
-							return API.sendChat("/me @" + chat.un + " Neispravna komanda!");
+							return API.sendChat("/me @" + chat.un + " Neispravna komanda! Upiši !ap help da vidiš listu komandi!");
 						}
 						function checkNull(arg)
 						{
