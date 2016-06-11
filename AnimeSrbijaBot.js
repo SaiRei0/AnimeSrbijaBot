@@ -379,14 +379,14 @@
             rulesLink: "http://pastebin.com/FpyDtcJE",
             themeLink: null,
             fbLink: "https://www.facebook.com/AnimeSrbija2013/",
-            youtubeLink: "http://bit.ly/1JCermI",
+            youtubeLink: "https://www.youtube.com/user/animesrbija2013",
             website: "http://www.animesrbija.rs/",
             intervalMessages: [],
             messageInterval: 5,
             songstats: false,
             commandLiteral: "!",
             blacklists: {
-                 OP: "https://rawgit.com/Ajdin1997/Dave1.0/master/blackList/OP.json"
+                 OP: "nije jos gotovo"
             }
         },
         room: {
@@ -3876,7 +3876,7 @@
             },
 
             // HiddenComand For someone special...
-             adnaCommand: {
+            /* adnaCommand: {
                 command: 'adna',
                 rank: 'user',
                 type: 'startsWith',
@@ -3910,7 +3910,7 @@
                         }
                     }
                 }
-            },
+            }, */
 
             fortunecookieCommand: {
                 command: 'fortunecookie',
@@ -4101,7 +4101,7 @@ API.sendChat(subChat(bBot.chat.eldox, {name: chat.un}));
 }
 }
 },
-stumblrCommand: {
+/* stumblrCommand: {
 command: 'stumblr',
 rank: 'user',
 type: 'exact',
@@ -4113,7 +4113,7 @@ var link = "http://name-is-already-taken.tumblr.com/";
 API.sendChat(subChat(bBot.chat.stumblr, {name: chat.un, link: link}));
 }
 }
-},
+}, */
 askCommand: {
 command: 'ask',
 rank: 'user',
@@ -4603,7 +4603,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceMessage = null;
 								bBot.room.announceStartTime = null;
 								bBot.room.announceTime = null;
-								API.sendChat("/me @" + chat.un + " Uspješno ugašeno objavljivanje!");
+								API.sendChat("/me @" + chat.un + " Uspešno ugašeno objavljivanje!");
 								}
 							}
 							function announceActivate(arguments,amsg)
@@ -4612,7 +4612,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceMessage = amsg;
 								bBot.room.announceStartTime = Date.now();
 								bBot.room.announceTime = arguments[1] * 60 * 1000;
-								API.sendChat("/me @" + chat.un + " Uspješno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
+								API.sendChat("/me @" + chat.un + " Uspešno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
 							}
 						}
 					}
