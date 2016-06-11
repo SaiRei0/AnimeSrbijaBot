@@ -4442,7 +4442,7 @@ API.on(API.ADVANCE, meh);
 							if(arguments[1] == "bet" && isNaN(parseInt(arguments[2])))
 							{
 								var recieverU = lookupUserName(reciever);
-								if(recieverU.inRoom)
+								if(recieverU == null || recieverU.inRoom)
 								{
 									var offer = parseInt(arguments[2]);
 									if(sender.isBetting)
@@ -4473,7 +4473,6 @@ API.on(API.ADVANCE, meh);
 								}else
 								{
 									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
-	
 								}
 							}
                         }else if(arguments[1] == "accept")
