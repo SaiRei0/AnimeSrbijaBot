@@ -1174,7 +1174,7 @@
 			}
 			//AnimeSrbija Anime points
 			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
-			obj.dj.AnimePoints += reward;
+			obj.dj.animePoints += reward;
 			API.sendChat("/me @" + obj.dj.username + "Osvojio si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis što možeš s njima!");
         },
         eventWaitlistupdate: function (users) {
@@ -4489,15 +4489,15 @@ API.on(API.ADVANCE, meh);
 								
 								if(rand >= 0.5)
 								{
-									sender.AnimePoints += sender.offered;
-									sender.better.AnimePoints -= sender.offered;
+									sender.animePoints += sender.offered;
+									sender.better.animePoints -= sender.offered;
 									finishBet(sender);
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								else
 								{
-									sender.AnimePoints -= sender.offered;
-									sender.better.AnimePoints += sender.offered;
+									sender.animePoints -= sender.offered;
+									sender.better.animePoints += sender.offered;
 									finishBet(sender);
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
@@ -4525,9 +4525,24 @@ API.on(API.ADVANCE, meh);
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "leaderboard")
 						{
-							for(i = 0; i< room.users.length; i++)
+							var leaders = room.users;
+							var ph;
+							for(i = 0; i< leaders.length; i++)
 							{
-								
+								for(j = 0; j<leaders.length;i++)
+								{
+									if(leaders[i].AnimePoins < leaders[j].animePoints)
+									{
+										ph = leaders[i];
+										leaders[j] = leaders[i];
+										leaders[i] = ph;
+									}
+								}
+							}
+							API.sendChat("/me Top 10 osoba, s najviše bodova:");
+							for(i = 0; i<leaders.length; i++)
+							{
+								API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
 							}
 						}else if(arguments[1] == "")
 						{
