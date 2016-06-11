@@ -4546,7 +4546,7 @@ API.on(API.ADVANCE, meh);
 							}
 						}else if(arguments[1] == "help")
 						{
-							 API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline, da vidiš leaderboard upiši !ap leaderboard ");
+							API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline");
 							return API.sendChat("/me da vidiš leaderboard upiši !ap leaderboard");
 						}else
 						{
