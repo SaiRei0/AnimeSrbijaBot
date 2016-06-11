@@ -4417,7 +4417,7 @@ API.on(API.ADVANCE, meh);
 						console.log(arguments);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
-							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa");
+							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa \nTest");
 						}
 						if(arguments.length > 3)
 						{
@@ -4525,7 +4525,13 @@ API.on(API.ADVANCE, meh);
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "leaderboard")
 						{
-							
+							for(i = 0; i< room.users.length; i++)
+							{
+								
+							}
+						}else if(arguments[1] == "")
+						{
+							return API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline, da vidiš leaderboard upiši !ap leaderboard ");
 						}else
 						{
 							return API.sendChat("/me @" + chat.un + " Neispravna komanda! Upiši !ap help da vidiš listu komandi!");
