@@ -317,7 +317,7 @@
         status: false,
         name: "KawaiBOT",
         loggedInID: "23625731",
-        scriptLink: "https://cdn.rawgit.com/Warix3/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
+        scriptLink: "https://rawgit.com/Warix3/AnimeSrbijaBot/master/AnimeSrbijaBot.js",
         cmdLink: "https://github.com/Warix3/AnimeSrbijaBot/blob/master/commands.md",
         chatLink: "https://rawgit.com/Warix3/AnimeSrbijaBot/master/Lang/cro.json",
         chat: null,
@@ -357,7 +357,7 @@
             usercommandsEnabled: true,
             thorCommand: true,
             thorInterval: 10,
-            skipPosition: 3,
+            skipPosition: 1,
             skipReasons: [
                 ["theme", "This song does not fit the room theme. "],
                 ["op", "This song is on the OP list. "],
@@ -375,18 +375,18 @@
             filterChat: true,
             etaRestriction: false,
             welcome: true,
-            opLink: "http://www.balkan19.ga/blacklist.html",
-            rulesLink: "http://www.balkan19.ga/rules.html",
+            opLink: "nije jos gotovo",
+            rulesLink: "http://pastebin.com/FpyDtcJE",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/bestparty19/",
-            youtubeLink: "http://bit.ly/1JCermI",
+            fbLink: "https://www.facebook.com/AnimeSrbija2013/",
+            youtubeLink: "https://www.youtube.com/user/animesrbija2013",
             website: "http://www.animesrbija.rs/",
             intervalMessages: [],
             messageInterval: 5,
             songstats: false,
             commandLiteral: "!",
             blacklists: {
-                 OP: "https://rawgit.com/Ajdin1997/Dave1.0/master/blackList/OP.json"
+                 OP: "nije jos gotovo"
             }
         },
         room: {
@@ -492,9 +492,10 @@
             this.lastKnownPosition = null;
 			//anime points
 			this.animePoints = 0;
-			this.betRecieved = false;
 			this.better = null;
 			this.offered = 0;
+			this.isBetting = false;
+			this.toWho = null;
         },
         userUtilities: {
             getJointime: function (user) {
@@ -1176,7 +1177,7 @@
             }
             storeToStorage();
 			//AnimeSrbija announce command:
-			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceTime) >= bBot.room.announceStartTime))
+			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
 			{
 				API.sendChat("/me " + bBot.room.announceMessage);
 				bBot.room.announceStartTime = Date.now();
@@ -2279,7 +2280,7 @@
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof bBot.settings.fbLink === "string")
-                            API.sendChat(subChat(bBot.chat.facebook, {name: chat.un, link: bBot.settings.fbLink}));
+                            API.sendChat(subChat(bBot.chat.facebook, {name: chat.un, link: "https://www.facebook.com/AnimeSrbija2013/"}));
                     }
                 }
             },
@@ -3084,7 +3085,7 @@
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof bBot.settings.rulesLink === "string")
-                            return API.sendChat(subChat(bBot.chat.roomrules, {link: bBot.settings.rulesLink}));
+                            return API.sendChat(subChat(bBot.chat.roomrules, {link: "http://pastebin.com/FpyDtcJE"}));
                     }
                 }
             },
@@ -3876,7 +3877,7 @@
             },
 
             // HiddenComand For someone special...
-             adnaCommand: {
+            /* adnaCommand: {
                 command: 'adna',
                 rank: 'user',
                 type: 'startsWith',
@@ -3910,7 +3911,7 @@
                         }
                     }
                 }
-            },
+            }, */
 
             fortunecookieCommand: {
                 command: 'fortunecookie',
@@ -4101,7 +4102,7 @@ API.sendChat(subChat(bBot.chat.eldox, {name: chat.un}));
 }
 }
 },
-stumblrCommand: {
+/* stumblrCommand: {
 command: 'stumblr',
 rank: 'user',
 type: 'exact',
@@ -4113,7 +4114,7 @@ var link = "http://name-is-already-taken.tumblr.com/";
 API.sendChat(subChat(bBot.chat.stumblr, {name: chat.un, link: link}));
 }
 }
-},
+}, */
 askCommand: {
 command: 'ask',
 rank: 'user',
@@ -4358,7 +4359,7 @@ API.on(API.ADVANCE, meh);
                     if (!bBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         if (typeof bBot.settings.youtubeLink === "string")
-                            API.sendChat(subChat(bBot.chat.youtube, {name: chat.un, link: bBot.settings.youtubeLink}));
+                            API.sendChat(subChat(bBot.chat.youtube, {name: chat.un, link: "https://www.youtube.com/user/animesrbija2013"}));
                     }
                 }
             },
@@ -4426,45 +4427,48 @@ API.on(API.ADVANCE, meh);
 						}
 						if(arguments.length > 3)
 						{
-						arguments.forEach(getReciever);
-						console.log(reciever);
-                        if(arguments[1] == "bet" && isNaN(parseInt(arguments[2])))
-						{
-							var recieverU = lookupUserName(reciever);
-							if(recieverU.inRoom)
+							for(i = 3; i < arguments.length; i++)
 							{
-								var offer = parseInt(arguments[2]);
-								if(sender.isBetting)
-								{
-									return API.sendChat("/me @" + chat.un + " već si započeo okladu s nekim! Upiši !ap \"withdraw\" da ju prekineš!");
-								}
-								if(recieverU.isBetting)
-								{
-									return API.sendChat("/me @" + chat.un + " " + recieverU.username + " se već kladi s nekim!");
-								}
-								if(ap < offer)
-								{
-									return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu okladu!");
-								}
-								if(recieverU.animePoints < offer)
-								{
-									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu okladu! Ima samo: " + recieverU.animePoints);
-								}
-								
-								recieverU.isBetting = true;
-								recieverU.better = sender;
-								recieverU.offered = offer;
-								sender.isBetting = true;
-								sender.toWho = recieverU;
-								API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
-								API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
-								applychange();
-							}else
-							{
-								return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
-
+								reciever = reciever + " " + arg;
 							}
-						}
+							console.log(reciever);
+							if(arguments[1] == "bet" && isNaN(parseInt(arguments[2])))
+							{
+								var recieverU = lookupUserName(reciever);
+								if(recieverU.inRoom)
+								{
+									var offer = parseInt(arguments[2]);
+									if(sender.isBetting)
+									{
+										return API.sendChat("/me @" + chat.un + " već si započeo okladu s nekim! Upiši !ap \"withdraw\" da ju prekineš!");
+									}
+									if(recieverU.isBetting)
+									{
+										return API.sendChat("/me @" + chat.un + " " + recieverU.username + " se već kladi s nekim!");
+									}
+									if(ap < offer)
+									{
+										return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu okladu!");
+									}
+									if(recieverU.animePoints < offer)
+									{
+										return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu okladu! Ima samo: " + recieverU.animePoints);
+									}
+									
+									recieverU.isBetting = true;
+									recieverU.better = sender;
+									recieverU.offered = offer;
+									sender.isBetting = true;
+									sender.toWho = recieverU;
+									API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
+									API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
+									applychange();
+								}else
+								{
+									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
+	
+								}
+							}
                         }else if(arguments[1] == "accept")
 						{
 							if(!sender.isBetting)
@@ -4549,7 +4553,7 @@ API.on(API.ADVANCE, meh);
         },
 			announceCommand: {
 					command: 'announce',
-					rank: 'user',
+					rank: 'mod',
 					type: 'startsWith',
 					functionality: function (chat, cmd) {
 						if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
@@ -4593,7 +4597,6 @@ API.on(API.ADVANCE, meh);
 							}
 							function announceStop(arguments,amsg)
 							{
-								console.log("stopeedeodeddddddddddddd");
 								if(!bBot.room.announceActive)
 								{
 								API.sendChat("/me @" + chat.un + " objavljivanje je već ugašeno!");
@@ -4603,7 +4606,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceMessage = null;
 								bBot.room.announceStartTime = null;
 								bBot.room.announceTime = null;
-								API.sendChat("/me @" + chat.un + " Uspješno ugašeno objavljivanje!");
+								API.sendChat("/me @" + chat.un + " Uspešno ugašeno objavljivanje!");
 								}
 							}
 							function announceActivate(arguments,amsg)
@@ -4612,7 +4615,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceMessage = amsg;
 								bBot.room.announceStartTime = Date.now();
 								bBot.room.announceTime = arguments[1] * 60 * 1000;
-								API.sendChat("/me @" + chat.un + " Uspješno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
+								API.sendChat("/me @" + chat.un + " Uspešno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
 							}
 						}
 					}
