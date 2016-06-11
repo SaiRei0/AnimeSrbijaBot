@@ -375,10 +375,10 @@
             filterChat: true,
             etaRestriction: false,
             welcome: true,
-            opLink: "http://www.balkan19.ga/blacklist.html",
-            rulesLink: "http://www.balkan19.ga/rules.html",
+            opLink: "nije jos gotovo",
+            rulesLink: "http://pastebin.com/FpyDtcJE",
             themeLink: null,
-            fbLink: "https://www.facebook.com/groups/bestparty19/",
+            fbLink: "https://www.facebook.com/AnimeSrbija2013/",
             youtubeLink: "http://bit.ly/1JCermI",
             website: "http://www.animesrbija.rs/",
             intervalMessages: [],
@@ -4549,7 +4549,7 @@ API.on(API.ADVANCE, meh);
         },
 			announceCommand: {
 					command: 'announce',
-					rank: 'manager',
+					rank: 'mod',
 					type: 'startsWith',
 					functionality: function (chat, cmd) {
 						if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
