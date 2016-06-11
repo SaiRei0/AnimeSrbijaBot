@@ -4442,6 +4442,7 @@ API.on(API.ADVANCE, meh);
 							if(arguments[1] == "bet" && !isNaN(arguments[2]))
 							{
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
+								console.log(recieverU.inRoom);
 								if(recieverU == null || recieverU.inRoom)
 								{
 									var offer = parseInt(arguments[2]);
