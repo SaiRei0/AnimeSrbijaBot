@@ -308,9 +308,9 @@
 			return s;
 	};
 	
-    var botCreator = "Benzi";
-    var botMaintainer = "BP"
-    var botCreatorIDs = ["3851534", "4105209"];
+    var botCreator = "Warix3,Benzi";
+    var botMaintainer = "Warix3"
+    var botCreatorIDs = ["3851534", "4105209",""];
 
     var bBot = {
         version: "v3.1.2",
@@ -916,7 +916,7 @@
             }
         },
         eventChat: function (chat) {
-			console.log(chat.message);
+			console.log(chat);
             chat.message = linkFixer(chat.message);
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
@@ -4475,6 +4475,9 @@ API.on(API.ADVANCE, meh);
 								{
 									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online!");
 								}
+							}
+							{
+								return API.sendChat("/me @" + chat.un + " Neispravna komanda!");
 							}
                         }else if(arguments[1] == "accept")
 						{
