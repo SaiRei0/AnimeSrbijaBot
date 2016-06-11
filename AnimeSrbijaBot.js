@@ -4429,7 +4429,7 @@ API.on(API.ADVANCE, meh);
 						{
 							for(i = 3; i < arguments.length; i++)
 							{
-								reciever = reciever + " " + arg;
+								reciever = reciever + " " + arguments[i];
 							}
 							console.log(reciever);
 							if(arguments[1] == "bet" && isNaN(parseInt(arguments[2])))
