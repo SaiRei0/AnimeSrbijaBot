@@ -378,7 +378,9 @@
             commandLiteral: "!",
             blacklists: {
                  OP: "nije jos gotovo"
-            }
+            },
+			mehAutoBan: true,
+			mehAutoBanLimit: 5
         },
         room: {
             name: null,
@@ -487,6 +489,7 @@
 			this.offered = 0;
 			this.isBetting = false;
 			this.toWho = null;
+			this.contMehs = 0;
         },
         userUtilities: {
             getJointime: function (user) {
@@ -1009,7 +1012,8 @@
             var dj = API.getDJ();
             var timeLeft = API.getTimeRemaining();
             var timeElapsed = API.getTimeElapsed();
-
+			
+			
             if (bBot.settings.voteSkip) {
                 if (mehs >= (bBot.settings.voteSkipLimit)) {
                     API.sendChat(subChat(bBot.chat.voteskipexceededlimit, {name: dj.username, limit: bBot.settings.voteSkipLimit}));
@@ -1021,6 +1025,28 @@
                     }
                 }
             }
+			
+			//AnimeSrbija mehAutoBan
+			if(bBot.settings.mehAutoBan)
+			{
+				var limit = bBot.settings.mehAutoBanLimit;
+				var voter = obj.user;
+				var vote = obj.vote;
+				
+				if(vote == -1)
+				{
+					voter.contMehs++;
+				}else
+				{
+					voter.contMehs = 0;
+				}
+				
+				if(voter.contMehs >= limit)
+				{
+					API.moderateBanUser(voter.id, "Mehao si pjesme " + limit + " puta za redom, šta nije dozvoljeno!", API.BAN.DAY);
+				}
+				
+			}
 
         },
         eventCurateupdate: function (obj) {
@@ -4638,7 +4664,43 @@ API.on(API.ADVANCE, meh);
 							}
 						}
 					}
-				}
+				},
+			mehautobanCommand: {
+                command: 'mehautoban',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!bBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var limit;
+
+                        if (msg.length === cmd.length)
+						{
+							limit = 5;
+						}
+                        else {
+                            limit = msg.substring(cmd.length + 1);
+                            if (isNaN(limit))
+							{
+								return API.sendChat("/me @" + chat.un + "Neispravna komanda, upiši !mehautoban [limit], gdje je limit maksimalan broj mehova zaredom");
+							}
+                        }
+                        if(!bBot.settings.mehAutoBan)
+						{
+							bBot.settings.mehAutoBan = true;
+							bBot.settings.mehAutoBanLimit = slow;
+							API.sendChat("/me Auto banovanje za uzastopno mehovanje uključeno! Limit uzastopnih mehova: "+ limit);
+						}else
+						{
+							bBot.settings.mehAutoBan = false;
+							API.sendChat("/me Auto banovanje za uzastopno mehovanje isključeno!");
+						}
+                        
+                    }
+                }
+            },
 			
 			}
     };
