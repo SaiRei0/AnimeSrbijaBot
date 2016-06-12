@@ -1200,8 +1200,9 @@
 			}
 			//AnimeSrbija Anime points
 			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
-			obj.dj.animePoints += reward;
-			API.sendChat("/me @" + obj.dj.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
+			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
+			lastdjplayed.animePoints += reward;
+			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
         },
         eventWaitlistupdate: function (users) {
             if (users.length < 50) {
