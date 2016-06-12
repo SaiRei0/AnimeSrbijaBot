@@ -1011,7 +1011,7 @@
             var timeElapsed = API.getTimeElapsed();
 
             if (bBot.settings.voteSkip) {
-                if ((mehs - woots) >= (bBot.settings.voteSkipLimit)) {
+                if (mehs >= (bBot.settings.voteSkipLimit)) {
                     API.sendChat(subChat(bBot.chat.voteskipexceededlimit, {name: dj.username, limit: bBot.settings.voteSkipLimit}));
                     if (bBot.settings.smartSkip && timeLeft > timeElapsed){
                         bBot.roomUtilities.smartSkip();
