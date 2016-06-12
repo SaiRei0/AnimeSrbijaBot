@@ -4690,7 +4690,7 @@ API.on(API.ADVANCE, meh);
                         if(!bBot.settings.mehAutoBan)
 						{
 							bBot.settings.mehAutoBan = true;
-							bBot.settings.mehAutoBanLimit = slow;
+							bBot.settings.mehAutoBanLimit = limit;
 							API.sendChat("/me Auto banovanje za uzastopno mehovanje uključeno! Limit uzastopnih mehova: "+ limit);
 						}else
 						{
@@ -4700,7 +4700,7 @@ API.on(API.ADVANCE, meh);
                         
                     }
                 }
-            },
+            }
 			
 			}
     };
