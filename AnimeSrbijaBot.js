@@ -4417,7 +4417,7 @@ API.on(API.ADVANCE, meh);
 						console.log(arguments);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
-							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa \nTest");
+							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa!");
 						}
 						if(arguments.length > 3)
 						{
