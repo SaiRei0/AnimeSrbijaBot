@@ -1067,10 +1067,14 @@
 			}
 			//AnimeSrbija Anime points
 			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
-			obj.dj.animePoints += reward;
-			API.sendChat("/me @" + obj.dj.username + "Osvojio si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis što možeš s njima!");
+			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
+			lastdjplayed.animePoints += reward;
+			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
+            $.post("",{winnerid:lastdjplayed.id,winnername:lastdjplayed.username,pointswon:reward,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){return API.sendChat("/me Problem sa upisivanjem informacija u bazu podataka!");};});
+
 			
-            if (bBot.settings.autowoot) {
+			
+			if (bBot.settings.autowoot) {
                 $("#woot").click(); // autowoot
             }
 
@@ -1205,21 +1209,6 @@
                 }, remaining + 5000);
             }
             storeToStorage();
-<<<<<<< HEAD
-			
-=======
-			//AnimeSrbija announce command:
-			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
-			{
-				API.sendChat("/me " + bBot.room.announceMessage);
-				bBot.room.announceStartTime = Date.now();
-			}
-			//AnimeSrbija Anime points
-			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
-			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
-			lastdjplayed.animePoints += reward;
-			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
->>>>>>> refs/remotes/origin/master
         },
         eventWaitlistupdate: function (users) {
             if (users.length < 50) {
@@ -4556,7 +4545,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints += sender.offered;
 									sender.better.animePoints -= sender.offered;
 									finishBet(sender);
-								$.post("",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
+									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								else
@@ -4564,7 +4553,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints -= sender.offered;
 									sender.better.animePoints += sender.offered;
 									finishBet(sender);
-									$.post("",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.better.offered,loserid:sender.id,losername:sender.username}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
+									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.better.offered,loserid:sender.id,losername:sender.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								
@@ -4624,14 +4613,6 @@ API.on(API.ADVANCE, meh);
 						{
 							return arg !== null;
 						}
-						function getReciever(arg)
-						{
-							c++;
-							if(c > 3)
-							{
-								reciever = reciever + " " + arg;
-							}
-						}
 						function finishBet(sender)
 						{
 							sender.better.isBetting = false;
@@ -4687,6 +4668,7 @@ API.on(API.ADVANCE, meh);
 								if(!bBot.room.announceActive)
 								{
 								API.sendChat("/me @" + chat.un + " objavljivanje je već ugašeno!");
+								return;
 								}else
 								{
 								bBot.room.announceActive = false;
@@ -4694,6 +4676,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceStartTime = null;
 								bBot.room.announceTime = null;
 								API.sendChat("/me @" + chat.un + " Uspešno ugašeno objavljivanje!");
+								return;
 								}
 							}
 							function announceActivate(arguments,amsg)
@@ -4703,6 +4686,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceStartTime = Date.now();
 								bBot.room.announceTime = arguments[1] * 60 * 1000;
 								API.sendChat("/me @" + chat.un + " Uspešno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
+								return;
 							}
 						}
 					}
