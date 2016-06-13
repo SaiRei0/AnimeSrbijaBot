@@ -4544,7 +4544,7 @@ API.on(API.ADVANCE, meh);
 						//	{
 						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
 						//	}
-							$.post("http://warixmods.ga/animesrbija-leaderboard/",
+							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",
 							{
 								name: "Donald Duck",
 								city: "Duckburg"
