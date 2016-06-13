@@ -4539,11 +4539,19 @@ API.on(API.ADVANCE, meh);
 									}
 								}
 							}
-							API.sendChat("/me Top 10 osoba, s najviše bodova:");
-							for(i = 0; i<leaders.length; i++)
+							$.post("http://warixmods.ga/animesrbija-leaderboard/",
 							{
-								API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
-							}
+								name: "Donald Duck",
+								city: "Duckburg"
+							},
+							function(data, status){
+								alert("Data: " + data + "\nStatus: " + status);
+							});
+						//	API.sendChat("/me Top 10 osoba, s najviše bodova:");
+						//	for(i = 0; i<leaders.length; i++)
+						//	{
+						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
+						//	}
 						}else if(arguments[1] == "help")
 						{
 							API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline");
