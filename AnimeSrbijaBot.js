@@ -4525,7 +4525,7 @@ API.on(API.ADVANCE, meh);
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "leaderboard")
 						{
-							var leaders = room.users;
+							var leaders = bBot.room.users;
 							var ph;
 							for(i = 0; i< leaders.length; i++)
 							{
