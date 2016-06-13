@@ -4525,20 +4525,25 @@ API.on(API.ADVANCE, meh);
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "leaderboard")
 						{
-							var leaders = bBot.room.users;
-							var ph;
-							for(i = 0; i< leaders.length; i++)
-							{
-								for(j = 0; j<leaders.length;i++)
-								{
-									if(leaders[i].AnimePoins < leaders[j].animePoints)
-									{
-										ph = leaders[i];
-										leaders[j] = leaders[i];
-										leaders[i] = ph;
-									}
-								}
-							}
+						//	var leaders = bBot.room.users;
+						//	var ph;
+						//	for(i = 0; i< leaders.length; i++)
+						//	{
+						//		for(j = 0; j<leaders.length;i++)
+						//		{
+						//			if(leaders[i].AnimePoins < leaders[j].animePoints)
+						//			{
+						//				ph = leaders[i];
+						//				leaders[j] = leaders[i];
+						//				leaders[i] = ph;
+						//			}
+						//		}
+						//	}
+						//	API.sendChat("/me Top 10 osoba, s najviše bodova:");
+						//	for(i = 0; i<leaders.length; i++)
+						//	{
+						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
+						//	}
 							$.post("http://warixmods.ga/animesrbija-leaderboard/",
 							{
 								name: "Donald Duck",
@@ -4547,11 +4552,7 @@ API.on(API.ADVANCE, meh);
 							function(data, status){
 								alert("Data: " + data + "\nStatus: " + status);
 							});
-						//	API.sendChat("/me Top 10 osoba, s najviše bodova:");
-						//	for(i = 0; i<leaders.length; i++)
-						//	{
-						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
-						//	}
+						
 						}else if(arguments[1] == "help")
 						{
 							API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline");
