@@ -314,6 +314,7 @@
         chat: null,
 		emojimap: null,
         loadChat: loadChat,
+		dbPassword: null,
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         settings: {
@@ -1031,6 +1032,18 @@
             }
         },
         eventDjadvance: function (obj) {
+			
+			//AnimeSrbija announce command:
+			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
+			{
+				API.sendChat("/me " + bBot.room.announceMessage);
+				bBot.room.announceStartTime = Date.now();
+			}
+			//AnimeSrbija Anime points
+			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
+			obj.dj.animePoints += reward;
+			API.sendChat("/me @" + obj.dj.username + "Osvojio si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis što možeš s njima!");
+			
             if (bBot.settings.autowoot) {
                 $("#woot").click(); // autowoot
             }
@@ -1166,16 +1179,7 @@
                 }, remaining + 5000);
             }
             storeToStorage();
-			//AnimeSrbija announce command:
-			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
-			{
-				API.sendChat("/me " + bBot.room.announceMessage);
-				bBot.room.announceStartTime = Date.now();
-			}
-			//AnimeSrbija Anime points
-			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
-			obj.dj.animePoints += reward;
-			API.sendChat("/me @" + obj.dj.username + "Osvojio si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis što možeš s njima!");
+			
         },
         eventWaitlistupdate: function (users) {
             if (users.length < 50) {
@@ -1458,6 +1462,26 @@
             Function.prototype.toString = function () {
                 return 'Function.'
             };
+			//AnimeSrbija database login start
+			if(bBot.settings.dbPassword == null)
+			{
+				checkPassword();
+				
+				function checkPassword() {
+				var dbPassword1 = prompt("Unesite lozinku od baze podataka: ");
+				$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{dbPassword:dbPassword1},function(data,status){
+					if(data = "PWD_OK")
+					{
+						bBot.settings.dbPassword = dbPassword1;
+					}else
+					{
+						alert("Netočna lozinka, pokušajte ponovo!");
+						checkPassword();
+					}
+				});
+				}
+			}
+			//AnimeSrbija end
             var u = API.getUser();
             if (bBot.userUtilities.getPermission(u) < 2) return API.chatLog(bBot.chat.greyuser);
             if (bBot.userUtilities.getPermission(u) === 2) API.chatLog(bBot.chat.bouncer);
@@ -4467,7 +4491,7 @@ API.on(API.ADVANCE, meh);
 									recieverU.offered = offer;
 									sender.isBetting = true;
 									sender.toWho = recieverU;
-									API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
+									API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + offer + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
 									API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
 									
 								}else
@@ -4492,6 +4516,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints += sender.offered;
 									sender.better.animePoints -= sender.offered;
 									finishBet(sender);
+								$.post("",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								else
@@ -4499,6 +4524,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints -= sender.offered;
 									sender.better.animePoints += sender.offered;
 									finishBet(sender);
+									$.post("",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.better.offered,loserid:sender.id,losername:sender.username}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								
@@ -4544,14 +4570,7 @@ API.on(API.ADVANCE, meh);
 						//	{
 						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
 						//	}
-							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",
-							{
-								name: "Donald Duck",
-								city: "Duckburg"
-							},
-							function(data, status){
-								alert("Data: " + data + "\nStatus: " + status);
-							});
+							return API.sendChat("Pogledaj leaderboard na ovom linku: http://warixmods.ga/animesrbija-leaderboard/");
 						
 						}else if(arguments[1] == "help")
 						{
@@ -4578,7 +4597,7 @@ API.on(API.ADVANCE, meh);
 							sender.better.isBetting = false;
 							sender.isBetting = false;
 							sender.better = null;
-							
+							return;
 						}
 			}		
         } 
