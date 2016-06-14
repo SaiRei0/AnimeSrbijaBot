@@ -1066,12 +1066,14 @@
 				bBot.room.announceStartTime = Date.now();
 			}
 			//AnimeSrbija Anime points
+			if(obj.lastPlay != null)
+			{
 			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
 			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
 			lastdjplayed.animePoints += reward;
 			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
             $.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:lastdjplayed.id,winnername:lastdjplayed.username,pointswon:reward,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){return API.sendChat("/me Problem sa upisivanjem informacija u bazu podataka!");};});
-
+			}
 			
 			
 			if (bBot.settings.autowoot) {
@@ -4507,9 +4509,9 @@ API.on(API.ADVANCE, meh);
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
 								$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,loserid:recieverU.id}, function(data)
 								{
-									var points = data.split(' ');
+									var points = data.trim().split(' ');
 									sender.animePoints = points[0];
-									recieverU.animePoints = points[0]
+									recieverU.animePoints = points[1]
 								});
 								console.log(recieverU.inRoom);
 								if(recieverU == null || recieverU.inRoom && recieverU != sender)
