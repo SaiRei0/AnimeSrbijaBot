@@ -314,6 +314,7 @@
         chat: null,
 		emojimap: null,
         loadChat: loadChat,
+		dbPassword: null,
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         settings: {
@@ -1057,7 +1058,25 @@
             }
         },
         eventDjadvance: function (obj) {
-            if (bBot.settings.autowoot) {
+			
+			//AnimeSrbija announce command:
+			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
+			{
+				API.sendChat("/me " + bBot.room.announceMessage);
+				bBot.room.announceStartTime = Date.now();
+			}
+			//AnimeSrbija Anime points
+			if(obj.lastPlay != null)
+			{
+			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
+			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
+			lastdjplayed.animePoints += reward;
+			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
+            $.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:lastdjplayed.id,winnername:lastdjplayed.username,pointswon:reward,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){return API.sendChat("/me Problem sa upisivanjem informacija u bazu podataka!");};});
+			}
+			
+			
+			if (bBot.settings.autowoot) {
                 $("#woot").click(); // autowoot
             }
 
@@ -1192,17 +1211,6 @@
                 }, remaining + 5000);
             }
             storeToStorage();
-			//AnimeSrbija announce command:
-			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
-			{
-				API.sendChat("/me " + bBot.room.announceMessage);
-				bBot.room.announceStartTime = Date.now();
-			}
-			//AnimeSrbija Anime points
-			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
-			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
-			lastdjplayed.animePoints += reward;
-			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
         },
         eventWaitlistupdate: function (users) {
             if (users.length < 50) {
@@ -1485,106 +1493,132 @@
             Function.prototype.toString = function () {
                 return 'Function.'
             };
-            var u = API.getUser();
-            if (bBot.userUtilities.getPermission(u) < 2) return API.chatLog(bBot.chat.greyuser);
-            if (bBot.userUtilities.getPermission(u) === 2) API.chatLog(bBot.chat.bouncer);
-            bBot.connectAPI();
-            API.moderateDeleteChat = function (cid) {
-                $.ajax({
-                    url: "https://plug.dj/_/chat/" + cid,
-                    type: "DELETE"
-                })
-            };
-
-            bBot.room.name = window.location.pathname;
-            var Check;
-
-            //console.log(bBot.room.name);
-
-            var detect = function(){
-                if(bBot.room.name != window.location.pathname){
-                    console.log("Killing bot after room change.");
-                    storeToStorage();
-                    bBot.disconnectAPI();
-                    setTimeout(function () {
-                        kill();
-                    }, 1000);
-                    if (bBot.settings.roomLock){
-                        window.location = 'https://plug.dj' + bBot.room.name;
-                    }
-                    else {
-                        clearInterval(Check);
-                    }
-                }
-            };
-
-            Check = setInterval(function(){ detect() }, 2000);
-
-            retrieveSettings();
-            retrieveFromStorage();
-            window.bot = bBot;
-            bBot.roomUtilities.updateBlacklists();
-            setInterval(bBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
-            bBot.getNewBlacklistedSongs = bBot.roomUtilities.exportNewBlacklistedSongs;
-            bBot.logNewBlacklistedSongs = bBot.roomUtilities.logNewBlacklistedSongs;
-            if (bBot.room.roomstats.launchTime === null) {
-                bBot.room.roomstats.launchTime = Date.now();
-            }
-
-            for (var j = 0; j < bBot.room.users.length; j++) {
-                bBot.room.users[j].inRoom = false;
-            }
-            var userlist = API.getUsers();
-            for (var i = 0; i < userlist.length; i++) {
-                var known = false;
-                var ind = null;
-                for (var j = 0; j < bBot.room.users.length; j++) {
-                    if (bBot.room.users[j].id === userlist[i].id) {
-                        known = true;
-                        ind = j;
-                    }
-                }
-                if (known) {
-                    bBot.room.users[ind].inRoom = true;
-                }
-                else {
-                    bBot.room.users.push(new bBot.User(userlist[i].id, userlist[i].username));
-                    ind = bBot.room.users.length - 1;
-                }
-                var wlIndex = API.getWaitListPosition(bBot.room.users[ind].id) + 1;
-                bBot.userUtilities.updatePosition(bBot.room.users[ind], wlIndex);
-            }
-            bBot.room.afkInterval = setInterval(function () {
-                bBot.roomUtilities.afkCheck()
-            }, 10 * 1000);
-            bBot.room.autorouletteInterval = setInterval(function () {
-                bBot.room.autorouletteFunc();
-            }, 120 * 60 * 1000);
-            bBot.loggedInID = API.getUser().id;
-            bBot.status = true;
-            API.sendChat('/cap ' + bBot.settings.startupCap);
-            API.setVolume(bBot.settings.startupVolume);
-            if (bBot.settings.autowoot) {
-                $("#woot").click();
-            }
-            if (bBot.settings.startupEmoji) {
-                var emojibuttonoff = $(".icon-emoji-off");
-                if (emojibuttonoff.length > 0) {
-                    emojibuttonoff[0].click();
-                }
-                API.chatLog(':smile: Emojis enabled.');
-            }
-            else {
-                var emojibuttonon = $(".icon-emoji-on");
-                if (emojibuttonon.length > 0) {
-                    emojibuttonon[0].click();
-                }
-                API.chatLog('Emojis disabled.');
-            }
-            API.chatLog('Avatars capped at ' + bBot.settings.startupCap);
-            API.chatLog('Volume set to ' + bBot.settings.startupVolume);
-            loadChat(API.sendChat(subChat(bBot.chat.online, {botname: bBot.settings.botName, version: bBot.version})));
-			loadEmoji();
+			//AnimeSrbija database login start
+			if(bBot.settings.dbPassword == null)
+			{
+				checkPassword();
+				
+				function checkPassword() {
+				var dbPassword1 = prompt("Unesite lozinku od baze podataka: ");
+				$.ajaxSetup({async: false});
+				$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{dbPassword:dbPassword1},function(data,status){
+					console.log(data);
+					var str = data;
+					if(String(str).trim() === "PWD_OK")
+					{
+						//PUT ALL OF STARTUP CODE INSIDE OF THIS IF EXECUTION CODE
+						bBot.settings.dbPassword = dbPassword1;
+						
+						var u = API.getUser();
+						if (bBot.userUtilities.getPermission(u) < 2) return API.chatLog(bBot.chat.greyuser);
+						if (bBot.userUtilities.getPermission(u) === 2) API.chatLog(bBot.chat.bouncer);
+						bBot.connectAPI();
+						API.moderateDeleteChat = function (cid) {
+							$.ajax({
+								url: "https://plug.dj/_/chat/" + cid,
+								type: "DELETE"
+							})
+						};
+			
+						bBot.room.name = window.location.pathname;
+						var Check;
+			
+						//console.log(bBot.room.name);
+			
+						var detect = function(){
+							if(bBot.room.name != window.location.pathname){
+								console.log("Killing bot after room change.");
+								storeToStorage();
+								bBot.disconnectAPI();
+								setTimeout(function () {
+									kill();
+								}, 1000);
+								if (bBot.settings.roomLock){
+									window.location = 'https://plug.dj' + bBot.room.name;
+								}
+								else {
+									clearInterval(Check);
+								}
+							}
+						};
+			
+						Check = setInterval(function(){ detect() }, 2000);
+			
+						retrieveSettings();
+						retrieveFromStorage();
+						window.bot = bBot;
+						bBot.roomUtilities.updateBlacklists();
+						setInterval(bBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
+						bBot.getNewBlacklistedSongs = bBot.roomUtilities.exportNewBlacklistedSongs;
+						bBot.logNewBlacklistedSongs = bBot.roomUtilities.logNewBlacklistedSongs;
+						if (bBot.room.roomstats.launchTime === null) {
+							bBot.room.roomstats.launchTime = Date.now();
+						}
+			
+						for (var j = 0; j < bBot.room.users.length; j++) {
+							bBot.room.users[j].inRoom = false;
+						}
+						var userlist = API.getUsers();
+						for (var i = 0; i < userlist.length; i++) {
+							var known = false;
+							var ind = null;
+							for (var j = 0; j < bBot.room.users.length; j++) {
+								if (bBot.room.users[j].id === userlist[i].id) {
+									known = true;
+									ind = j;
+								}
+							}
+							if (known) {
+								bBot.room.users[ind].inRoom = true;
+							}
+							else {
+								bBot.room.users.push(new bBot.User(userlist[i].id, userlist[i].username));
+								ind = bBot.room.users.length - 1;
+							}
+							var wlIndex = API.getWaitListPosition(bBot.room.users[ind].id) + 1;
+							bBot.userUtilities.updatePosition(bBot.room.users[ind], wlIndex);
+						}
+						bBot.room.afkInterval = setInterval(function () {
+							bBot.roomUtilities.afkCheck()
+						}, 10 * 1000);
+						bBot.room.autorouletteInterval = setInterval(function () {
+							bBot.room.autorouletteFunc();
+						}, 120 * 60 * 1000);
+						bBot.loggedInID = API.getUser().id;
+						bBot.status = true;
+						API.sendChat('/cap ' + bBot.settings.startupCap);
+						API.setVolume(bBot.settings.startupVolume);
+						if (bBot.settings.autowoot) {
+							$("#woot").click();
+						}
+						if (bBot.settings.startupEmoji) {
+							var emojibuttonoff = $(".icon-emoji-off");
+							if (emojibuttonoff.length > 0) {
+								emojibuttonoff[0].click();
+							}
+							API.chatLog(':smile: Emojis enabled.');
+						}
+						else {
+							var emojibuttonon = $(".icon-emoji-on");
+							if (emojibuttonon.length > 0) {
+								emojibuttonon[0].click();
+							}
+							API.chatLog('Emojis disabled.');
+						}
+						API.chatLog('Avatars capped at ' + bBot.settings.startupCap);
+						API.chatLog('Volume set to ' + bBot.settings.startupVolume);
+						loadChat(API.sendChat(subChat(bBot.chat.online, {botname: bBot.settings.botName, version: bBot.version})));
+						loadEmoji();
+					}else
+					{
+						alert("Netočna lozinka, pokušajte ponovo!");
+						checkPassword();
+					}
+				});
+				}
+			}
+			//AnimeSrbija end
+            
         },
         commands: {
             executable: function (minRank, chat) {
@@ -4433,18 +4467,20 @@ API.on(API.ADVANCE, meh);
                     else {
                         var msg = chat.message;
 						var sender = bBot.userUtilities.lookupUser(chat.uid);
-						var ap = sender.animePoints;
 						var arguments = msg.split(' ');
 						var reciever = "";
 						var c = 0;
 						var rand = Math.random();
 						
-						
 						arguments = arguments.filter(checkNull);
 						console.log(arguments);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
-							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa!");
+							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id}, function(data)
+							{
+								sender.animePoints = data;
+							});
+							return API.sendChat("/me @" + chat.un + " imaš " + sender.animePoints + " AnimePointsa!");
 						}
 						if(arguments.length > 3)
 						{
@@ -4462,12 +4498,21 @@ API.on(API.ADVANCE, meh);
 							console.log(reciever);
 							if(arguments[1] == "bet" && !isNaN(arguments[2]) && arguments[2] > 0)
 							{
+								var senderpoints;
+								var recieverpoints;
+								
 								reciever = reciever.trim();
 								if(reciever.startsWith("@"))
 								{
 									reciever = reciever.trim().substring(1);
 								}
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
+								$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,loserid:recieverU.id}, function(data)
+								{
+									var points = data.trim().split(' ');
+									sender.animePoints = points[0];
+									recieverU.animePoints = points[1]
+								});
 								console.log(recieverU.inRoom);
 								if(recieverU == null || recieverU.inRoom && recieverU != sender)
 								{
@@ -4480,7 +4525,7 @@ API.on(API.ADVANCE, meh);
 									{
 										return API.sendChat("/me @" + chat.un + " " + recieverU.username + " se već kladi s nekim!");
 									}
-									if(ap < offer)
+									if(sender.animePoints < offer)
 									{
 										return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu okladu!");
 									}
@@ -4494,7 +4539,7 @@ API.on(API.ADVANCE, meh);
 									recieverU.offered = offer;
 									sender.isBetting = true;
 									sender.toWho = recieverU;
-									API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + ap + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
+									API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + offer + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
 									API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
 									
 								}else
@@ -4519,6 +4564,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints += sender.offered;
 									sender.better.animePoints -= sender.offered;
 									finishBet(sender);
+									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								else
@@ -4526,6 +4572,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints -= sender.offered;
 									sender.better.animePoints += sender.offered;
 									finishBet(sender);
+									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.better.offered,loserid:sender.id,losername:sender.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								
@@ -4552,25 +4599,27 @@ API.on(API.ADVANCE, meh);
 							return API.sendChat("/me @" + chat.un + " oklada prekinuta!");
 						}else if(arguments[1] == "leaderboard")
 						{
-							var leaders = room.users;
-							var ph;
-							for(i = 0; i< leaders.length; i++)
-							{
-								for(j = 0; j<leaders.length;i++)
-								{
-									if(leaders[i].AnimePoins < leaders[j].animePoints)
-									{
-										ph = leaders[i];
-										leaders[j] = leaders[i];
-										leaders[i] = ph;
-									}
-								}
-							}
-							API.sendChat("/me Top 10 osoba, s najviše bodova:");
-							for(i = 0; i<leaders.length; i++)
-							{
-								API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
-							}
+						//	var leaders = bBot.room.users;
+						//	var ph;
+						//	for(i = 0; i< leaders.length; i++)
+						//	{
+						//		for(j = 0; j<leaders.length;i++)
+						//		{
+						//			if(leaders[i].AnimePoins < leaders[j].animePoints)
+						//			{
+						//				ph = leaders[i];
+						//				leaders[j] = leaders[i];
+						//				leaders[i] = ph;
+						//			}
+						//		}
+						//	}
+						//	API.sendChat("/me Top 10 osoba, s najviše bodova:");
+						//	for(i = 0; i<leaders.length; i++)
+						//	{
+						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
+						//	}
+							return API.sendChat("Pogledaj leaderboard na ovom linku: http://warixmods.ga/animesrbija-leaderboard/");
+						
 						}else if(arguments[1] == "help")
 						{
 							API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline");
@@ -4583,20 +4632,12 @@ API.on(API.ADVANCE, meh);
 						{
 							return arg !== null;
 						}
-						function getReciever(arg)
-						{
-							c++;
-							if(c > 3)
-							{
-								reciever = reciever + " " + arg;
-							}
-						}
 						function finishBet(sender)
 						{
 							sender.better.isBetting = false;
 							sender.isBetting = false;
 							sender.better = null;
-							
+							return;
 						}
 			}		
         } 
@@ -4646,6 +4687,7 @@ API.on(API.ADVANCE, meh);
 								if(!bBot.room.announceActive)
 								{
 								API.sendChat("/me @" + chat.un + " objavljivanje je već ugašeno!");
+								return;
 								}else
 								{
 								bBot.room.announceActive = false;
@@ -4653,6 +4695,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceStartTime = null;
 								bBot.room.announceTime = null;
 								API.sendChat("/me @" + chat.un + " Uspešno ugašeno objavljivanje!");
+								return;
 								}
 							}
 							function announceActivate(arguments,amsg)
@@ -4662,6 +4705,7 @@ API.on(API.ADVANCE, meh);
 								bBot.room.announceStartTime = Date.now();
 								bBot.room.announceTime = arguments[1] * 60 * 1000;
 								API.sendChat("/me @" + chat.un + " Uspešno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
+								return;
 							}
 						}
 					}
