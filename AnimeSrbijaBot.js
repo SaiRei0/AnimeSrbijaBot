@@ -1498,6 +1498,7 @@
 				
 				function checkPassword() {
 				var dbPassword1 = prompt("Unesite lozinku od baze podataka: ");
+				$.ajaxSetup({async: false});
 				$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{dbPassword:dbPassword1},function(data,status){
 					console.log(data);
 					if(data == "PWD_OK")
