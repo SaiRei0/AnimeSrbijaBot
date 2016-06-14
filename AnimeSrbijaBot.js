@@ -1502,7 +1502,7 @@
 				$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{dbPassword:dbPassword1},function(data,status){
 					console.log(data);
 					var str = data;
-					if(String(str) === "PWD_OK")
+					if(String(str).trim() === "PWD_OK")
 					{
 						//PUT ALL OF STARTUP CODE INSIDE OF THIS IF EXECUTION CODE
 						bBot.settings.dbPassword = dbPassword1;
