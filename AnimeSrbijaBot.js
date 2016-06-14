@@ -1072,7 +1072,7 @@
 			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
 			lastdjplayed.animePoints += reward;
 			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
-            $.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:lastdjplayed.id,winnername:lastdjplayed.username,pointswon:reward,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){return API.sendChat("/me Problem sa upisivanjem informacija u bazu podataka!");};});
+            $.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:lastdjplayed.id,winnername:lastdjplayed.username,pointswon:reward,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){return API.sendChat("/me Problem sa upisivanjem informacija u bazu podataka!");};});
 			}
 			
 			
@@ -4564,7 +4564,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints += sender.offered;
 									sender.better.animePoints -= sender.offered;
 									finishBet(sender);
-									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
+									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								else
@@ -4572,7 +4572,7 @@ API.on(API.ADVANCE, meh);
 									sender.animePoints -= sender.offered;
 									sender.better.animePoints += sender.offered;
 									finishBet(sender);
-									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.better.offered,loserid:sender.id,losername:sender.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
+									$.post("http://warixmods.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.better.offered,loserid:sender.id,losername:sender.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.better.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
 								
