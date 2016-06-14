@@ -1502,7 +1502,109 @@
 					console.log(data);
 					if(data == "PWD_OK")
 					{
+						//PUT ALL OF STARTUP CODE INSIDE OF THIS IF EXECUTION CODE
 						bBot.settings.dbPassword = dbPassword1;
+						
+						var u = API.getUser();
+						if (bBot.userUtilities.getPermission(u) < 2) return API.chatLog(bBot.chat.greyuser);
+						if (bBot.userUtilities.getPermission(u) === 2) API.chatLog(bBot.chat.bouncer);
+						bBot.connectAPI();
+						API.moderateDeleteChat = function (cid) {
+							$.ajax({
+								url: "https://plug.dj/_/chat/" + cid,
+								type: "DELETE"
+							})
+						};
+			
+						bBot.room.name = window.location.pathname;
+						var Check;
+			
+						//console.log(bBot.room.name);
+			
+						var detect = function(){
+							if(bBot.room.name != window.location.pathname){
+								console.log("Killing bot after room change.");
+								storeToStorage();
+								bBot.disconnectAPI();
+								setTimeout(function () {
+									kill();
+								}, 1000);
+								if (bBot.settings.roomLock){
+									window.location = 'https://plug.dj' + bBot.room.name;
+								}
+								else {
+									clearInterval(Check);
+								}
+							}
+						};
+			
+						Check = setInterval(function(){ detect() }, 2000);
+			
+						retrieveSettings();
+						retrieveFromStorage();
+						window.bot = bBot;
+						bBot.roomUtilities.updateBlacklists();
+						setInterval(bBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
+						bBot.getNewBlacklistedSongs = bBot.roomUtilities.exportNewBlacklistedSongs;
+						bBot.logNewBlacklistedSongs = bBot.roomUtilities.logNewBlacklistedSongs;
+						if (bBot.room.roomstats.launchTime === null) {
+							bBot.room.roomstats.launchTime = Date.now();
+						}
+			
+						for (var j = 0; j < bBot.room.users.length; j++) {
+							bBot.room.users[j].inRoom = false;
+						}
+						var userlist = API.getUsers();
+						for (var i = 0; i < userlist.length; i++) {
+							var known = false;
+							var ind = null;
+							for (var j = 0; j < bBot.room.users.length; j++) {
+								if (bBot.room.users[j].id === userlist[i].id) {
+									known = true;
+									ind = j;
+								}
+							}
+							if (known) {
+								bBot.room.users[ind].inRoom = true;
+							}
+							else {
+								bBot.room.users.push(new bBot.User(userlist[i].id, userlist[i].username));
+								ind = bBot.room.users.length - 1;
+							}
+							var wlIndex = API.getWaitListPosition(bBot.room.users[ind].id) + 1;
+							bBot.userUtilities.updatePosition(bBot.room.users[ind], wlIndex);
+						}
+						bBot.room.afkInterval = setInterval(function () {
+							bBot.roomUtilities.afkCheck()
+						}, 10 * 1000);
+						bBot.room.autorouletteInterval = setInterval(function () {
+							bBot.room.autorouletteFunc();
+						}, 120 * 60 * 1000);
+						bBot.loggedInID = API.getUser().id;
+						bBot.status = true;
+						API.sendChat('/cap ' + bBot.settings.startupCap);
+						API.setVolume(bBot.settings.startupVolume);
+						if (bBot.settings.autowoot) {
+							$("#woot").click();
+						}
+						if (bBot.settings.startupEmoji) {
+							var emojibuttonoff = $(".icon-emoji-off");
+							if (emojibuttonoff.length > 0) {
+								emojibuttonoff[0].click();
+							}
+							API.chatLog(':smile: Emojis enabled.');
+						}
+						else {
+							var emojibuttonon = $(".icon-emoji-on");
+							if (emojibuttonon.length > 0) {
+								emojibuttonon[0].click();
+							}
+							API.chatLog('Emojis disabled.');
+						}
+						API.chatLog('Avatars capped at ' + bBot.settings.startupCap);
+						API.chatLog('Volume set to ' + bBot.settings.startupVolume);
+						loadChat(API.sendChat(subChat(bBot.chat.online, {botname: bBot.settings.botName, version: bBot.version})));
+						loadEmoji();
 					}else
 					{
 						alert("Netočna lozinka, pokušajte ponovo!");
@@ -1512,106 +1614,7 @@
 				}
 			}
 			//AnimeSrbija end
-            var u = API.getUser();
-            if (bBot.userUtilities.getPermission(u) < 2) return API.chatLog(bBot.chat.greyuser);
-            if (bBot.userUtilities.getPermission(u) === 2) API.chatLog(bBot.chat.bouncer);
-            bBot.connectAPI();
-            API.moderateDeleteChat = function (cid) {
-                $.ajax({
-                    url: "https://plug.dj/_/chat/" + cid,
-                    type: "DELETE"
-                })
-            };
-
-            bBot.room.name = window.location.pathname;
-            var Check;
-
-            //console.log(bBot.room.name);
-
-            var detect = function(){
-                if(bBot.room.name != window.location.pathname){
-                    console.log("Killing bot after room change.");
-                    storeToStorage();
-                    bBot.disconnectAPI();
-                    setTimeout(function () {
-                        kill();
-                    }, 1000);
-                    if (bBot.settings.roomLock){
-                        window.location = 'https://plug.dj' + bBot.room.name;
-                    }
-                    else {
-                        clearInterval(Check);
-                    }
-                }
-            };
-
-            Check = setInterval(function(){ detect() }, 2000);
-
-            retrieveSettings();
-            retrieveFromStorage();
-            window.bot = bBot;
-            bBot.roomUtilities.updateBlacklists();
-            setInterval(bBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
-            bBot.getNewBlacklistedSongs = bBot.roomUtilities.exportNewBlacklistedSongs;
-            bBot.logNewBlacklistedSongs = bBot.roomUtilities.logNewBlacklistedSongs;
-            if (bBot.room.roomstats.launchTime === null) {
-                bBot.room.roomstats.launchTime = Date.now();
-            }
-
-            for (var j = 0; j < bBot.room.users.length; j++) {
-                bBot.room.users[j].inRoom = false;
-            }
-            var userlist = API.getUsers();
-            for (var i = 0; i < userlist.length; i++) {
-                var known = false;
-                var ind = null;
-                for (var j = 0; j < bBot.room.users.length; j++) {
-                    if (bBot.room.users[j].id === userlist[i].id) {
-                        known = true;
-                        ind = j;
-                    }
-                }
-                if (known) {
-                    bBot.room.users[ind].inRoom = true;
-                }
-                else {
-                    bBot.room.users.push(new bBot.User(userlist[i].id, userlist[i].username));
-                    ind = bBot.room.users.length - 1;
-                }
-                var wlIndex = API.getWaitListPosition(bBot.room.users[ind].id) + 1;
-                bBot.userUtilities.updatePosition(bBot.room.users[ind], wlIndex);
-            }
-            bBot.room.afkInterval = setInterval(function () {
-                bBot.roomUtilities.afkCheck()
-            }, 10 * 1000);
-            bBot.room.autorouletteInterval = setInterval(function () {
-                bBot.room.autorouletteFunc();
-            }, 120 * 60 * 1000);
-            bBot.loggedInID = API.getUser().id;
-            bBot.status = true;
-            API.sendChat('/cap ' + bBot.settings.startupCap);
-            API.setVolume(bBot.settings.startupVolume);
-            if (bBot.settings.autowoot) {
-                $("#woot").click();
-            }
-            if (bBot.settings.startupEmoji) {
-                var emojibuttonoff = $(".icon-emoji-off");
-                if (emojibuttonoff.length > 0) {
-                    emojibuttonoff[0].click();
-                }
-                API.chatLog(':smile: Emojis enabled.');
-            }
-            else {
-                var emojibuttonon = $(".icon-emoji-on");
-                if (emojibuttonon.length > 0) {
-                    emojibuttonon[0].click();
-                }
-                API.chatLog('Emojis disabled.');
-            }
-            API.chatLog('Avatars capped at ' + bBot.settings.startupCap);
-            API.chatLog('Volume set to ' + bBot.settings.startupVolume);
-            loadChat(API.sendChat(subChat(bBot.chat.online, {botname: bBot.settings.botName, version: bBot.version})));
-			loadEmoji();
+            
         },
         commands: {
             executable: function (minRank, chat) {
