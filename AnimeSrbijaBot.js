@@ -4459,18 +4459,20 @@ API.on(API.ADVANCE, meh);
                     else {
                         var msg = chat.message;
 						var sender = bBot.userUtilities.lookupUser(chat.uid);
-						var ap = sender.animePoints;
 						var arguments = msg.split(' ');
 						var reciever = "";
 						var c = 0;
 						var rand = Math.random();
 						
-						
 						arguments = arguments.filter(checkNull);
 						console.log(arguments);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
-							return API.sendChat("/me @" + chat.un + " imaš " + ap + " AnimePointsa!");
+							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id}, function(data)
+							{
+								sender.animePoints = data;
+							});
+							return API.sendChat("/me @" + chat.un + " imaš " + sender.animePoints + " AnimePointsa!");
 						}
 						if(arguments.length > 3)
 						{
@@ -4488,12 +4490,21 @@ API.on(API.ADVANCE, meh);
 							console.log(reciever);
 							if(arguments[1] == "bet" && !isNaN(arguments[2]) && arguments[2] > 0)
 							{
+								var senderpoints;
+								var recieverpoints;
+								
 								reciever = reciever.trim();
 								if(reciever.startsWith("@"))
 								{
 									reciever = reciever.trim().substring(1);
 								}
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
+								$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,loserid:recieverU.id}, function(data)
+								{
+									var points = data.split(' ');
+									sender.animePoints = points[0];
+									recieverU.animePoints = points[0]
+								});
 								console.log(recieverU.inRoom);
 								if(recieverU == null || recieverU.inRoom && recieverU != sender)
 								{
@@ -4506,7 +4517,7 @@ API.on(API.ADVANCE, meh);
 									{
 										return API.sendChat("/me @" + chat.un + " " + recieverU.username + " se već kladi s nekim!");
 									}
-									if(ap < offer)
+									if(sender.animePoints < offer)
 									{
 										return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu okladu!");
 									}
