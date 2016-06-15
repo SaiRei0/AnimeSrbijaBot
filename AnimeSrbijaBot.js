@@ -4486,7 +4486,7 @@ API.on(API.ADVANCE, meh);
 						console.log(arguments);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
-							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id}, function(data)
+							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,dbPassword:bBot.settings.dbPassword}, function(data)
 							{
 								sender.animePoints = parseint(data.trim());
 							});
