@@ -1510,7 +1510,7 @@
 					var str = data;
 					if(String(str).trim() === "PWD_OK")
 					{
-						
+						bBot.settings.dbPassword = dbPassword1;
 					}else
 					{
 						alert("Netočna lozinka, pokušajte ponovo!");
@@ -1518,7 +1518,7 @@
 					}
 				});}
 						//PUT ALL OF STARTUP CODE INSIDE OF THIS IF EXECUTION CODE
-						bBot.settings.dbPassword = dbPassword1;
+						
 						
 						var u = API.getUser();
 						if (bBot.userUtilities.getPermission(u) < 2) return API.chatLog(bBot.chat.greyuser);
