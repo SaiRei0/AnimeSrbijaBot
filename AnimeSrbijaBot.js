@@ -1514,7 +1514,7 @@
 						alert("Netočna lozinka, pokušajte ponovo!");
 						checkPassword();
 					}
-				}
+				});}}
 						//PUT ALL OF STARTUP CODE INSIDE OF THIS IF EXECUTION CODE
 						bBot.settings.dbPassword = dbPassword1;
 						
@@ -1622,8 +1622,8 @@
 							
 						
 					
-				});
-				}
+				
+				
 			
 			//AnimeSrbija end
             
