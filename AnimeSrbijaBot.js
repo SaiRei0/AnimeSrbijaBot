@@ -4559,7 +4559,7 @@ API.on(API.ADVANCE, meh);
 								{
 									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online! , ili si se pokušao kladiti sam s sobom!");
 								}
-							}
+							}else
 							{
 								return API.sendChat("/me @" + chat.un + " Neispravna komanda! Upiši !ap help da vidiš listu komandi!");
 							}
