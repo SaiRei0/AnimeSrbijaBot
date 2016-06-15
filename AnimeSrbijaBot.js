@@ -1494,12 +1494,12 @@
                 return 'Function.'
             };
 			//AnimeSrbija database login start
-			if(bBot.settings.dbPassword == null)
-			{
+			
 				retrieveSettings();
 				retrieveFromStorage();
 				checkPassword();
-				
+				if(bBot.settings.dbPassword == null)
+				{
 				function checkPassword() {
 				var dbPassword1 = prompt("Unesite lozinku od baze podataka: ");
 				$.ajaxSetup({async: false});
@@ -1508,6 +1508,13 @@
 					var str = data;
 					if(String(str).trim() === "PWD_OK")
 					{
+						
+					}else
+					{
+						alert("Netočna lozinka, pokušajte ponovo!");
+						checkPassword();
+					}
+				}
 						//PUT ALL OF STARTUP CODE INSIDE OF THIS IF EXECUTION CODE
 						bBot.settings.dbPassword = dbPassword1;
 						
@@ -1611,14 +1618,13 @@
 						API.chatLog('Volume set to ' + bBot.settings.startupVolume);
 						loadChat(API.sendChat(subChat(bBot.chat.online, {botname: bBot.settings.botName, version: bBot.version})));
 						loadEmoji();
-					}else
-					{
-						alert("Netočna lozinka, pokušajte ponovo!");
-						checkPassword();
-					}
+						
+							
+						
+					
 				});
 				}
-			}
+			
 			//AnimeSrbija end
             
         },
