@@ -4488,7 +4488,7 @@ API.on(API.ADVANCE, meh);
 						{
 							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id}, function(data)
 							{
-								sender.animePoints = data;
+								sender.animePoints = parseint(data.trim());
 							});
 							return API.sendChat("/me @" + chat.un + " imaš " + sender.animePoints + " AnimePointsa!");
 						}
@@ -4520,8 +4520,8 @@ API.on(API.ADVANCE, meh);
 								$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,loserid:recieverU.id}, function(data)
 								{
 									var points = data.trim().split(' ');
-									sender.animePoints = points[0];
-									recieverU.animePoints = points[1]
+									sender.animePoints = parseint(points[0]);
+									recieverU.animePoints = parseint(points[1]);
 								});
 								console.log(recieverU.inRoom);
 								if(recieverU == null || recieverU.inRoom && recieverU != sender)
