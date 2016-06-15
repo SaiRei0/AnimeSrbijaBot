@@ -4486,6 +4486,7 @@ API.on(API.ADVANCE, meh);
 						console.log(arguments);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
+							$.ajaxSetup({async: false});
 							$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,dbPassword:bBot.settings.dbPassword}, function(data)
 							{
 								sender.animePoints = parseInt(data.trim());
@@ -4517,6 +4518,7 @@ API.on(API.ADVANCE, meh);
 									reciever = reciever.trim().substring(1);
 								}
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
+								$.ajaxSetup({async: false});
 								$.post("http://warixmods.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,loserid:recieverU.id}, function(data)
 								{
 									var points = data.trim().split(' ');
