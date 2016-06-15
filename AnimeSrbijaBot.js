@@ -1496,6 +1496,8 @@
 			//AnimeSrbija database login start
 			if(bBot.settings.dbPassword == null)
 			{
+				retrieveSettings();
+				retrieveFromStorage();
 				checkPassword();
 				
 				function checkPassword() {
