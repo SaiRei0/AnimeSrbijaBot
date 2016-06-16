@@ -1068,7 +1068,7 @@
 			//AnimeSrbija Anime points
 			if(obj.lastPlay != null)
 			{
-			var reward = obj.lastPlay.score.positive + obj.lastPlay.score.grabs - obj.lastPlay.score.negative;
+			var reward = obj.lastPlay.score.positive + (obj.lastPlay.score.grabs * 3) - obj.lastPlay.score.negative;
 			var lastdjplayed = bBot.userUtilities.lookupUser(obj.lastPlay.dj.id);
 			lastdjplayed.animePoints += reward;
 			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
@@ -4490,7 +4490,15 @@ API.on(API.ADVANCE, meh);
 							{
 								sender.animePoints = parseInt(data.trim());
 							});
-							return API.sendChat("/me @" + chat.un + " imaš " + sender.animePoints + " AnimePointsa!");
+							if(!isNaN(sender.animePoints))
+							{
+								return API.sendChat("/me @" + chat.un + " imaš " + sender.animePoints + " AnimePointsa!");
+							}else
+							{
+								return API.sendChat("/me @" + chat.un + " imaš 0 AnimePointsa!");
+							}								
+							
+							
 						}
 						if(arguments.length > 3)
 						{
@@ -4536,11 +4544,11 @@ API.on(API.ADVANCE, meh);
 									{
 										return API.sendChat("/me @" + chat.un + " " + recieverU.username + " se već kladi s nekim!");
 									}
-									if(sender.animePoints < offer)
+									if(isNaN(sender.animePoints) || (sender.animePoints < offer))
 									{
 										return API.sendChat("/me @" + chat.un + " nemaš dovoljno AnimePointsa za tu okladu!");
 									}
-									if(recieverU.animePoints < offer)
+									if(isNaN(recieverU.animePoints) || (recieverU.animePoints < offer))
 									{
 										return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti nema dovoljno AnimePointsa za tu okladu! Ima samo: " + recieverU.animePoints);
 									}
@@ -4593,8 +4601,7 @@ API.on(API.ADVANCE, meh);
 									
 								}
 								
-							}
-							else
+							}else
 							{
 								finishBet(sender);
 								return API.sendChat("/me @" + chat.un + " osoba koja te izazvala na okladu je trenutno offline, oklada se prekida!");
