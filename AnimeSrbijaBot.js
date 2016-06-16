@@ -381,7 +381,10 @@
                  OP: "nije jos gotovo"
             },
 			mehAutoBan: true,
-			mehAutoBanLimit: 5
+			mehAutoBanLimit: 5,
+			announceActive: false,
+			announceMessage: null,
+			announceStartTime: null
         },
         room: {
             name: null,
@@ -458,9 +461,6 @@
             usersUsedThor: [],
 			SlowMode: false,
 			SlowModeDuration: 10,
-			announceActive: false,
-			announceMessage: null,
-			announceStartTime: null
         },
 
         User: function (id, name) {
@@ -1060,10 +1060,10 @@
         eventDjadvance: function (obj) {
 			
 			//AnimeSrbija announce command:
-			if(bBot.room.announceActive && ((Date.now() - bBot.room.announceStartTime) >= bBot.room.announceTime))
+			if(bBot.settings.announceActive && ((Date.now() - bBot.settings.announceStartTime) >= bBot.settings.announceTime))
 			{
-				API.sendChat("/me " + bBot.room.announceMessage);
-				bBot.room.announceStartTime = Date.now();
+				API.sendChat("/me " + bBot.settings.announceMessage);
+				bBot.settings.announceStartTime = Date.now();
 			}
 			//AnimeSrbija Anime points
 			if(obj.lastPlay != null)
@@ -4701,26 +4701,26 @@ API.on(API.ADVANCE, meh);
 							}
 							function announceStop(arguments,amsg)
 							{
-								if(!bBot.room.announceActive)
+								if(!bBot.settings.announceActive)
 								{
 								API.sendChat("/me @" + chat.un + " objavljivanje je već ugašeno!");
 								return;
 								}else
 								{
-								bBot.room.announceActive = false;
-								bBot.room.announceMessage = null;
-								bBot.room.announceStartTime = null;
-								bBot.room.announceTime = null;
+								bBot.settings.announceActive = false;
+								bBot.settings.announceMessage = null;
+								bBot.settings.announceStartTime = null;
+								bBot.settings.announceTime = null;
 								API.sendChat("/me @" + chat.un + " Uspešno ugašeno objavljivanje!");
 								return;
 								}
 							}
 							function announceActivate(arguments,amsg)
 							{
-								bBot.room.announceActive = true;
-								bBot.room.announceMessage = amsg;
-								bBot.room.announceStartTime = Date.now();
-								bBot.room.announceTime = arguments[1] * 60 * 1000;
+								bBot.settings.announceActive = true;
+								bBot.settings.announceMessage = amsg;
+								bBot.settings.announceStartTime = Date.now();
+								bBot.settings.announceTime = arguments[1] * 60 * 1000;
 								API.sendChat("/me @" + chat.un + " Uspešno postavljeno objavljivanje.Približno svakih: " + arguments[1] + " minuta će se objaviti: " + amsg);
 								return;
 							}
