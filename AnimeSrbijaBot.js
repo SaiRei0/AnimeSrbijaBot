@@ -4560,7 +4560,7 @@ API.on(API.ADVANCE, meh);
 									sender.toWho = recieverU;
 									API.sendChat("/me @" + recieverU.username + " " + chat.un + " te poziva na opkladu! u " + offer + " AnimePointsa! Upišisi \"!ap accept\" ili \"!ap decline\"");
 									API.sendChat("/me @" + chat.un + " ako želiš prekinuti okladu upiši \"!ap withdraw\" ");
-									
+									return;
 								}else
 								{
 									return API.sendChat("/me @" + chat.un + " osoba s kojom se želiš kladiti trenutno nije online! , ili si se pokušao kladiti sam s sobom!");
