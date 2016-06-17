@@ -1316,23 +1316,6 @@
                     }
                 }
                  **/
-                if(msg.indexOf("Dobrodosao/la") !== -1){                
-                  setTimeout(function (id) {
-                  API.moderateDeleteChat(id);
-                    }, 60 * 1000, chat.cid);
-                      }
-                  if(msg.indexOf("cao bote") !== -1 || msg.indexOf("bote cao") !== -1 || msg.indexOf("hai") !== -1 || msg.indexOf("pozz bote") !== -1 || msg.indexOf("doing good bot?") !== -1 || msg.indexOf("bot doing good?") !== -1 || msg.indexOf("hows it going            bot") !== -1 || msg.indexOf("bot how is it going") !== -1 || msg.indexOf("how you doing bot") !== -1 || msg.indexOf("bot how you doing") !== -1){                
-                    var HRUMsg = ["Pozz","hello","cao, cao"];
-                    API.sendChat("@" + chat.un + " " + HRUMsg[Math.floor(Math.random() * HRUMsg.length)]);
-                }
-                if(msg.indexOf("hvala bote") !== -1 || msg.indexOf("hvala") !== -1 || msg.indexOf("bote hvala") !== -1 || msg.indexOf("zahvaljujem bote") !== -1){                
-                    var TYMsg = ["Nema na cemu","Np  :P","Sve za tebe  <3"];
-                    API.sendChat("@" + chat.un + " " + TYMsg[Math.floor(Math.random() * TYMsg.length)]);
-                }
-                if(msg.indexOf("volim te bote") !== -1 || msg.indexOf("ljubav moja ") !== -1 || msg.indexOf("bote volim te") !== -1 || msg.indexOf("bote srce moje") !== -1 || msg.indexOf("bote moj") !== -1 || msg.indexOf("bot majljepsi") !== -1){                
-                    var LOVEMsg = ["Volim i ja tebe <3","Najvisee","Ja tebe ne, PRC","Voli tebe tvoj bot :*"];
-                    API.sendChat("@" + chat.un + " " + LOVEMsg[Math.floor(Math.random() * LOVEMsg.length)]);
-                }
                 if (msg.indexOf('http://adf.ly/') > -1) {
                     API.moderateDeleteChat(chat.cid);
                     API.sendChat(subChat(bBot.chat.adfly, {name: chat.un}));
