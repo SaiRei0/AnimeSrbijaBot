@@ -915,7 +915,7 @@
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
 			chat.message = decodeEmoji(chat.message);
-			$.post("http://localhost/log.php",{type:chat.type,un:chat.un,uid:chat.uid,message:chat.message}, function(data){
+			$.post("http://localhost/log-edit.php",{type:chat.type,un:chat.un,uid:chat.uid,message:chat.message}, function(data){
 				if(data.trim() != "PWD_OK"){
 				
 				};});
