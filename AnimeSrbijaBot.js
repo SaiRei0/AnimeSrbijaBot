@@ -915,11 +915,13 @@
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
 			chat.message = decodeEmoji(chat.message);
+			if(chat.uid != 14044670)
+			{
 			$.post("http://localhost/log-edit.php",{type:chat.type,un:chat.un,uid:chat.uid,message:chat.message}, function(data){
 				if(data.trim() != "PWD_OK"){
 				
 				};});
-				
+			}
             for (var i = 0; i < bBot.room.users.length; i++) {
                 if (bBot.room.users[i].id === chat.uid) {
 					if(bBot.room.slowMode)
