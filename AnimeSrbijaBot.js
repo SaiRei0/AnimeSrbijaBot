@@ -915,6 +915,11 @@
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
 			chat.message = decodeEmoji(chat.message);
+			$.post("http://localhost/log.php",{type:chat.type,un:chat.un,uid:chat.uid,message:chat.message}, function(data){
+				if(data.trim() != "PWD_OK"){
+				
+				};});
+				
             for (var i = 0; i < bBot.room.users.length; i++) {
                 if (bBot.room.users[i].id === chat.uid) {
 					if(bBot.room.slowMode)
@@ -4664,7 +4669,7 @@ API.on(API.ADVANCE, meh);
 								API.sendChat("/me @" + chat.un + " upiši !ap [nakon koliko minuta da se objavi poruka] [poruka] ili !announce stop da zaustaviš objavljivanje");
 							}else if(arguments[0] == "!announce" && !isNaN(arguments[1]) && arguments[2] != null )
 							{
-								if(!bBot.room.announceActive)
+								if(!bBot.settings.announceActive)
 								{
 									announceActivate(arguments,amsg);
 								}else
