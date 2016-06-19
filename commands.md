@@ -87,6 +87,11 @@
 					<td>null or [time]</td>
 					<td>When no argument is specified, returns the current voteskip limit, when X is specified, voteskip limit is updated to the new specified limit.</td>
 				</tr>
+				<tr>
+					<td>!mehautoban</td>
+					<td>[number of songs]</td>
+					<td>Toggle auto ban after specified number of songs , if none is specified default is 5</td>
+				</tr>
 			</tbody>
 		</table>
 		<h2>BOUNCER</h2>
