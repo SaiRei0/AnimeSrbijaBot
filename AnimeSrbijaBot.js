@@ -461,6 +461,11 @@
             usersUsedThor: [],
 			SlowMode: false,
 			SlowModeDuration: 10,
+			APGiveawayOn : false,
+			APGiveawayFromTo : [],
+			APGiveawayDuration : 0,
+			APGiveawayReward : 0,
+			APGiveawayTakenNumbers: []
         },
 
         User: function (id, name) {
@@ -917,19 +922,41 @@
 			chat.message = decodeEmoji(chat.message);
 			if(chat.uid != 14044670)
 			{
-			$.post("http://localhost/log-edit.php",{type:chat.type,un:chat.un,uid:chat.uid,message:chat.message}, function(data){
-				if(data.trim() != "PWD_OK"){
-				
-				};});
+			$.ajaxSetup({async: true});
+			$.post("http://localhost/log-edit.php",{type:chat.type,un:chat.un,uid:chat.uid,message:chat.message});
 			}
+			
             for (var i = 0; i < bBot.room.users.length; i++) {
                 if (bBot.room.users[i].id === chat.uid) {
+					var userSent = bBot.room.users[i];
 					if(bBot.room.slowMode)
 					{
 						if((Date.now() - bBot.room.users[i].lastActivity) < (bBot.room.slowModeDuration * 1000))
 						{
 							API.moderateDeleteChat(chat.cid);
 							return void (0);
+						}
+					}
+					//AnimeSrbija AnimePoints Giveaway
+					if(bBot.room.APGiveawayOn && isNaN(parseInt(chat.message)))
+					{
+						var num = parseInt(chat.message)
+						
+						if(bBot.room.APGiveawayTakenNumbers.find(containsNum))
+						{
+							API.sendChat("/me @" + chat.un + " Taj broj je zauzet!");
+						}else if(num >= bBot.room.APGiveawayFromTo[0] && num <= bBot.room.APGiveawayFromTo[1])
+						{
+							userSent.selectedNumber = num;
+							bBot.room.APGiveawayTakenNumbers.push(num);
+						}else
+						{
+							API.sendChat("/me @" + chat.un + " Taj broj je izvan granica!");
+						}
+						
+						function containsNum(num2)
+						{
+							return num2 == num;
 						}
 					}
                     bBot.userUtilities.setLastActivity(bBot.room.users[i]);
@@ -4564,7 +4591,7 @@ API.on(API.ADVANCE, meh);
 							{
 								return API.sendChat("/me @" + chat.un + " Nitko vas nije izazvao na okladu!");
 							}
-							if(sender.better.inRoom)
+							if(sender.better != null && sender.better.inRoom)
 							{
 								
 								if(rand >= 0.5)
@@ -4637,6 +4664,30 @@ API.on(API.ADVANCE, meh);
 						{
 							API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline");
 							return API.sendChat("/me da vidiš leaderboard upiši !ap leaderboard");
+						}else if(arguments[1] == "giveaway" && bBot.commands.executable("host", chat) && !isNaN(parseInt(arguments[2])) && !isNaN(parseInt(arguments[3]) && !isNaN(parseInt(arguments[4])) && !isNaN(parseInt(arguments[5])))
+						{
+							var fromNumber = parseInt(arguments[2]);
+							var toNumber = parseInt(arguments[3]);
+							var rewardPoints = parseInt(arguments[4]);
+							var duration = parseInt(arguments[5]);
+							API.sendChat("/me @djs Upaljen je giveaway AnimePointsa! Bot je zamislio broj od " + fromNumber + " do " + toNumber + ". Upiši u chat broj za koji misliš da ga je bot zamislio. Nagrada je " + rewardPoints + " AnimePointsa. Svatko može pogađati samo 1 broj! Giveaway traje " + duration + " sekundi!");
+							bBot.room.APGiveawayOn = true;
+							bBot.room.APGiveawayFromTo = [fromNumber,toNumber];
+							bBot.room.APGiveawayDuration = duration;
+							bBot.room.APGiveawayReward = reward;
+							bBot.room.APGiveawayStartTime = Date.now();
+							bBot.room.APGiveawayTheNumber = rand * 
+						}else if(arguments[1] == "giveaway" && arguments[2] == "cancel" && bBot.commands.executable("host", chat))
+						{
+							bBot.room.APGiveawayOn = false;
+							bBot.room.APGiveawayFromTo = null;
+							bBot.room.APGiveawayDuration = null;
+							bBot.room.APGiveawayReward = null;
+							bBot.room.APGiveawayStartTime = null;
+							return API.sendChat("/me @" + chat.un + "Giveaway je prekinut!");
+						}else if(arguments[1] == "giveaway")
+						{
+							return API.sendChat("/me @" + chat.un + " Neispravna komanda! upiši !ap giveaway (od) (do) (nagrada) (trajanje u sekundama)");
 						}else
 						{
 							return API.sendChat("/me @" + chat.un + " Neispravna komanda! Upiši !ap help da vidiš listu komandi!");
