@@ -4676,7 +4676,7 @@ API.on(API.ADVANCE, meh);
 							bBot.room.APGiveawayDuration = duration;
 							bBot.room.APGiveawayReward = reward;
 							bBot.room.APGiveawayStartTime = Date.now();
-							bBot.room.APGiveawayTheNumber = rand * 
+							// bBot.room.APGiveawayTheNumber = rand * 
 						}else if(arguments[1] == "giveaway" && arguments[2] == "cancel" && bBot.commands.executable("host", chat))
 						{
 							bBot.room.APGiveawayOn = false;
