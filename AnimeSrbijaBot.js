@@ -4664,7 +4664,7 @@ API.on(API.ADVANCE, meh);
 						{
 							API.sendChat("/me @" + chat.un + " Da bi vidio koliko imaš AnimePointsa upiši !ap, da bi se kladio s nekim upiši !ap [bodovi] ime,da bi prekinio poziv napiši !ap withdraw, da bi prihvatio okladu napiši !ap accept, da bi odbio okladu napiši !ap decline");
 							return API.sendChat("/me da vidiš leaderboard upiši !ap leaderboard");
-						}else if(arguments[1] == "giveaway" && bBot.commands.executable("host", chat) && !isNaN(parseInt(arguments[2])) && !isNaN(parseInt(arguments[3]) && !isNaN(parseInt(arguments[4])) && !isNaN(parseInt(arguments[5])))
+						}else if(arguments[1] == "giveaway" && bBot.commands.executable("host", chat) && !isNaN(parseInt(arguments[2])) && !isNaN(parseInt(arguments[3])) && !isNaN(parseInt(arguments[4])) && !isNaN(parseInt(arguments[5])))
 						{
 							var fromNumber = parseInt(arguments[2]);
 							var toNumber = parseInt(arguments[3]);
