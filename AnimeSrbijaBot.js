@@ -916,6 +916,7 @@
             }
         },
         eventChat: function (chat) {
+			console.log(chat);
             chat.message = linkFixer(chat.message);
             chat.message = decodeEntities(chat.message);
             chat.message = chat.message.trim();
