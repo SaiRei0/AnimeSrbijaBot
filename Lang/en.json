@@ -107,11 +107,9 @@
     "nousercookie": "/em doesn't see %%NAME%% in room and eats a cookie himself, haha yea.",
     "nouserprc": "/em doesn't see %%NAME%% in room.",
     "selfcookie": "/me [!cookie] @%%NAME%%, you're a bit greedy, aren't you? Giving cookies to yourself, bah. Share some with other people!",
-    "selfprc": "/me [!prc] @%%NAME%%, You need to tag someone.",
-    "selfadna": "/me @%%NAME%%, You can't do that.",
+    "selfprc": "/me [!prc] @%%NAME%%, You need to tag someone."
     "cookie": "/me [!cookie] @%%NAMETO%%, @%%NAMEFROM%% %%COOKIE%%",
     "prc": "/me [!prc] @%%NAMETO%%, %%COOKIE%%",
-    "adna": "/me %%ADNA%%",
     "fortunecookie": "/me %%NAME%% %%FORTUNE%%",
     "selffortunecookie": "/me @%%NAME%%, Sorry you can't do that.",
     "cycleguardtime": "/me [!cycletimer] :white_check_mark: [@%%NAME%%] The cycleguard is set to %%TIME%% minute(s).",
