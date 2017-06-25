@@ -1108,7 +1108,7 @@
 			lastdjplayed.animePoints += reward;
 			API.sendChat("/me @" + lastdjplayed.username + " Osvojio/la si " + reward + " AnimePointsa! upisi \"!ap help\" da vidis šta možeš s njima!");
             $.ajaxSetup({async: true});
-			$.post("http://kawaibot.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:lastdjplayed.id,winnername:lastdjplayed.username,pointswon:reward,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){return API.sendChat("/me Problem sa upisivanjem informacija u bazu podataka!");};});
+			$.post("http://kawaibot.tk/ASBleaderboard-edit.php",{winnerid:lastdjplayed.id,winnername:lastdjplayed.username,pointswon:reward,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){return API.sendChat("/me Problem sa upisivanjem informacija u bazu podataka!");};});
 			}
 			
 			
@@ -1524,7 +1524,7 @@
 				function checkPassword() {
 				var dbPassword1 = prompt("Unesite lozinku od baze podataka: ");
 				$.ajaxSetup({async: false});
-				$.post("http://kawaibot.ga/animesrbija/ASBleaderboard-edit.php",{dbPassword:dbPassword1},function(data,status){
+				$.post("http://kawaibot.tk/ASBleaderboard-edit.php",{dbPassword:dbPassword1},function(data,status){
 					console.log(data);
 					var str = data;
 					if(String(str).trim() === "PWD_OK")
@@ -4504,7 +4504,7 @@ API.on(API.ADVANCE, meh);
                         if (arguments[0] == "!ap" && arguments.length == 1)
 						{
 							$.ajaxSetup({async: false});
-							$.post("http://kawaibot.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,dbPassword:bBot.settings.dbPassword}, function(data)
+							$.post("http://kawaibot.tk/ASBleaderboard-getpoints.php",{winnerid:sender.id,dbPassword:bBot.settings.dbPassword}, function(data)
 							{
 								sender.animePoints = parseInt(data.trim());
 							});
@@ -4544,7 +4544,7 @@ API.on(API.ADVANCE, meh);
 								}
 								var recieverU = bBot.userUtilities.lookupUserName(reciever);
 								$.ajaxSetup({async: false});
-								$.post("http://kawaibot.ga/animesrbija/ASBleaderboard-getpoints.php",{winnerid:sender.id,loserid:recieverU.id}, function(data)
+								$.post("http://kawaibot.tk/ASBleaderboard-getpoints.php",{winnerid:sender.id,loserid:recieverU.id}, function(data)
 								{
 									var points = data.trim().split(' ');
 									sender.animePoints = parseInt(points[0]);
@@ -4601,7 +4601,7 @@ API.on(API.ADVANCE, meh);
 									sender.better.animePoints -= sender.offered;
 									
 									$.ajaxSetup({async: false});
-									$.post("http://kawaibot.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
+									$.post("http://kawaibot.tk/ASBleaderboard-edit.php",{winnerid:sender.id,winnername:sender.username,pointswon:sender.offered,loserid:sender.better.id,losername:sender.better.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									finishBet(sender);
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + sender.username + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
 								}
@@ -4611,7 +4611,7 @@ API.on(API.ADVANCE, meh);
 									sender.better.animePoints += sender.offered;
 			
 									$.ajaxSetup({async: false});
-									$.post("http://kawaibot.ga/animesrbija/ASBleaderboard-edit.php",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.offered,loserid:sender.id,losername:sender.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
+									$.post("http://kawaibot.tk/ASBleaderboard-edit.php",{winnerid:sender.better.id,winnername:sender.better.username,pointswon:sender.offered,loserid:sender.id,losername:sender.username,dbPassword:bBot.settings.dbPassword}, function(data){if(data.trim() != "PWD_OK"){API.sendChat("/me Problem sa upisivanjem podataka u bazu podataka!")};});
 									var betusr = sender.better.username;
 									finishBet(sender);
 									return API.sendChat("/me @" + chat.un + " Oklada je završena! " + betusr + " je pobjedio i osvojio " + sender.offered + " AnimePointsa!");
@@ -4659,7 +4659,7 @@ API.on(API.ADVANCE, meh);
 						//	{
 						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
 						//	}
-							return API.sendChat("Pogledaj leaderboard na ovom linku: http://kawaibot.ga/animesrbija-leaderboard/");
+							return API.sendChat("Pogledaj leaderboard na ovom linku: http://kawaibot.tk-leaderboard/");
 						
 						}else if(arguments[1] == "help")
 						{
