@@ -4659,7 +4659,7 @@ API.on(API.ADVANCE, meh);
 						//	{
 						//		API.sendChat("/me " + i + ". " + leaders[i].username + " : " + leaders[i].animePoints);
 						//	}
-							return API.sendChat("Pogledaj leaderboard na ovom linku: http://kawaibot.tk-leaderboard/");
+							return API.sendChat("Pogledaj leaderboard na ovom linku: http://kawaibot.tk/");
 						
 						}else if(arguments[1] == "help")
 						{
