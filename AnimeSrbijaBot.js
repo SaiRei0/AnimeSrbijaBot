@@ -4532,7 +4532,7 @@ API.on(API.ADVANCE, meh);
 								}
 							}
 							console.log(reciever);
-							if(arguments[1] == "bet" && !isNaN(arguments[2]) && arguments[2] > 0)
+							if(arguments[1] == "bet" && !isNaN(arguments[2]) && arguments[2] > 0 && 1>2)
 							{
 								var senderpoints;
 								var recieverpoints;
